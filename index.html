@@ -20,70 +20,74 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-/* Header */
+/* HEADER */
 .header {
   text-align: center;
-  margin-bottom: 30px;
   padding: 25px;
+  margin-bottom: 30px;
   border-radius: 12px;
   background: linear-gradient(135deg, #42a5f5, #64b5f6);
   color: #fff;
 }
 
 .header .icon {
-  font-size: 60px;
+  font-size: 56px;
+  margin-bottom: 6px;
 }
 
+/* SEARCH */
 input {
   width: 100%;
   padding: 14px;
   font-size: 16px;
-  border: 1px solid #d0e2f2;
   border-radius: 10px;
-  margin-bottom: 22px;
+  border: 1px solid #cfd8dc;
+  margin-bottom: 24px;
 }
 
-/* Issue list */
+/* LIST */
 .issue-item {
   border: 1px solid #e0e0e0;
   border-radius: 10px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.issue-header {
   padding: 16px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.issue-item:hover {
-  background: #f1f8ff;
-  border-color: #90caf9;
-}
-
-.issue-title {
   font-weight: bold;
-  font-size: 16px;
   color: #1976d2;
+  cursor: pointer;
+  background: #fafafa;
 }
 
-/* Detail (hidden) */
+.issue-header:hover {
+  background: #f1f8ff;
+}
+
 .issue-detail {
   display: none;
-  margin-top: 12px;
+  padding: 16px;
+  background: #fff;
   border-top: 1px dashed #cfd8dc;
-  padding-top: 12px;
+}
+
+.section {
+  margin-bottom: 14px;
 }
 
 .section h4 {
-  margin: 8px 0 4px;
+  margin: 0 0 6px;
   color: #1565c0;
 }
 
 img {
   max-width: 100%;
-  margin-top: 10px;
   border-radius: 10px;
+  margin-top: 10px;
 }
 
-/* Footer */
+/* FOOTER */
 .footer {
   text-align: center;
   margin-top: 40px;
@@ -97,7 +101,7 @@ img {
 <div class="container">
 
   <div class="header">
-    <div class="icon">📘🚀</div>
+    <div class="icon">📘💡</div>
     <h1>Issue Tracker Helpdesk</h1>
     <p>Pusat solusi & panduan penanganan issue</p>
   </div>
@@ -109,6 +113,7 @@ img {
   <div class="footer">
     © <span id="year"></span> Helpdesk
   </div>
+
 </div>
 
 <script>
@@ -120,8 +125,9 @@ const SHEET_URL =
   + Date.now();
 
 let issues = [];
+let opened = null;
 
-/* FETCH DATA */
+/* FETCH */
 fetch(SHEET_URL)
   .then(r => r.text())
   .then(csv => {
@@ -135,11 +141,10 @@ fetch(SHEET_URL)
         image_id: c[3]?.replace(/"/g,"").trim()
       };
     });
-    renderList(issues);
+    render(issues);
   });
 
-/* RENDER ISSUE LIST (ISSUE SAJA) */
-function renderList(data) {
+function render(data) {
   const list = document.getElementById("list");
   list.innerHTML = "";
 
@@ -149,42 +154,51 @@ function renderList(data) {
   }
 
   data.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "issue-item";
+    const wrap = document.createElement("div");
+    wrap.className = "issue-item";
 
-    const imageHTML =
-      item.image_id && item.image_id.toLowerCase() !== "kosong"
-        ? `<img src="https://drive.google.com/uc?id=${item.image_id}">`
-        : "";
+    const detail = document.createElement("div");
+    detail.className = "issue-detail";
 
-    div.innerHTML = `
-      <div class="issue-title">${item.issue}</div>
-      <div class="issue-detail">
-        <div class="section">
-          <h4>Solusi</h4>
-          <p>${item.solusi}</p>
-        </div>
-        <div class="section">
-          <h4>Langkah-langkah</h4>
-          <p>${item.langkah}</p>
-        </div>
-        ${imageHTML}
+    detail.innerHTML = `
+      <div class="section">
+        <h4>Solusi</h4>
+        <p>${item.solusi}</p>
       </div>
+      <div class="section">
+        <h4>Langkah-langkah</h4>
+        <p>${item.langkah}</p>
+      </div>
+      ${
+        item.image_id && item.image_id !== "kosong"
+          ? `<img src="https://drive.google.com/uc?id=${item.image_id}">`
+          : ""
+      }
     `;
 
-    div.onclick = () => {
-      const d = div.querySelector(".issue-detail");
-      d.style.display = d.style.display === "block" ? "none" : "block";
+    const header = document.createElement("div");
+    header.className = "issue-header";
+    header.textContent = item.issue;
+
+    header.onclick = () => {
+      if (opened && opened !== detail) {
+        opened.style.display = "none";
+      }
+      detail.style.display =
+        detail.style.display === "block" ? "none" : "block";
+      opened = detail.style.display === "block" ? detail : null;
     };
 
-    list.appendChild(div);
+    wrap.appendChild(header);
+    wrap.appendChild(detail);
+    list.appendChild(wrap);
   });
 }
 
 /* SEARCH → ISSUE ONLY */
 document.getElementById("search").addEventListener("input", e => {
   const key = e.target.value.toLowerCase();
-  renderList(
+  render(
     issues.filter(i => i.issue.toLowerCase().includes(key))
   );
 });
