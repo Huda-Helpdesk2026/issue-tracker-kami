@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Helpdesk Issue Tracker </title>
+    <title>Issue Tracker Helpdesk | Enterprise Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
@@ -12,8 +12,8 @@
             --primary: #0ea5e9;
             --primary-dark: #0284c7;
             --primary-glow: rgba(14, 165, 233, 0.1);
-            --bg-body: #f1f5f9; /* Latar belakang body sedikit lebih gelap */
-            --header-offwhite: #f8fafc; /* Warna putih condong ke abu-abu untuk header */
+            --bg-body: #f1f5f9;
+            --header-offwhite: #f8fafc; /* Putih keabu-abuan untuk Header */
             --sidebar-dark: #0f172a;
             --card-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.07);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -92,16 +92,16 @@
 
         .container { max-width: 900px; margin: auto; }
 
-        /* --- HEADER CARD (WARNA PUTIH-ABU) --- */
+        /* --- HEADER CARD --- */
         .header-card {
             background: var(--header-offwhite);
             border-radius: 24px;
-            padding: 25px 40px;
+            padding: 30px 40px;
             text-align: center;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
             position: relative;
-            border: 1px solid #e2e8f0; /* Border dipertegas agar kontras dengan abu-abu */
+            border: 1px solid #e2e8f0;
         }
 
         .datetime {
@@ -118,22 +118,40 @@
         }
 
         .main-logo {
-            width: 180px;
+            width: 180px; /* Logo diperlebar */
             height: auto;
             margin: 0 auto 15px;
             display: block;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.06));
         }
 
+        /* GAYA FONT KEREN UNTUK JUDUL */
         .header-card h1 { 
-            font-size: 28px;
+            font-size: 36px;
             font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 5px;
-            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 30%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1.8px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            animation: focus-in 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         }
 
-        .header-card p { color: #64748b; font-size: 14px; }
+        .header-card p { 
+            color: #64748b; 
+            font-size: 13px; 
+            font-weight: 600; 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        @keyframes focus-in {
+            0% { letter-spacing: 2px; filter: blur(12px); opacity: 0; }
+            100% { letter-spacing: -1.8px; filter: blur(0); opacity: 1; }
+        }
 
         /* --- SEARCH BOX --- */
         .search-wrapper { position: relative; margin-bottom: 35px; }
@@ -142,7 +160,7 @@
             padding: 18px 25px 18px 60px;
             border-radius: 20px;
             border: 1px solid #e2e8f0;
-            background: white; /* Tetap putih agar menonjol di atas body abu */
+            background: white;
             font-size: 16px;
             outline: none;
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.02);
@@ -154,7 +172,7 @@
         }
         .search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: #cbd5e1; font-size: 20px; }
 
-        /* --- ISSUE CARDS --- */
+        /* --- ENHANCED ISSUE CARDS --- */
         .issue-card {
             background: white;
             border-radius: 20px;
@@ -178,61 +196,50 @@
             align-items: center;
         }
 
-        .issue-trigger span:first-child {
-            font-weight: 700;
-            color: #334155;
-            font-size: 15px;
-        }
-
+        .issue-trigger span:first-child { font-weight: 700; color: #334155; font-size: 15px; }
         .arrow { font-size: 12px; color: #94a3b8; transition: transform 0.4s ease; }
 
         .issue-card.open { border-color: var(--primary); }
         .issue-card.open .arrow { transform: rotate(180deg); color: var(--primary); }
 
-        /* --- ENHANCED CONTENT AREA --- */
+        /* STYLISH DETAIL CONTENT */
         .issue-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             background: linear-gradient(to bottom, #ffffff, #fcfdfe);
         }
 
-        .issue-card.open .issue-content { max-height: 2500px; border-top: 1px solid #f1f5f9; }
-
+        .issue-card.open .issue-content { max-height: 3000px; border-top: 1px solid #f1f5f9; }
         .content-inner { padding: 30px; }
 
         .solusi-container {
             background: #f8fafc;
-            border-left: 4px solid var(--primary);
-            padding: 22px 28px;
+            border-left: 5px solid var(--primary);
+            padding: 25px;
             border-radius: 0 16px 16px 0;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        .solusi-text {
-            line-height: 1.8;
-            font-size: 15px;
-            color: #475569;
-            font-weight: 450;
-        }
+        .solusi-text { line-height: 1.8; font-size: 15px; color: #475569; font-weight: 450; }
 
         .image-wrapper {
             margin-top: 25px;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 25px 35px -10px rgba(0,0,0,0.12);
             border: 1px solid #e2e8f0;
         }
 
-        .issue-image { width: 100%; display: block; transition: transform 0.5s; }
-        .issue-image:hover { transform: scale(1.02); }
+        .issue-image { width: 100%; display: block; transition: transform 0.5s ease; }
+        .issue-image:hover { transform: scale(1.03); }
 
         .footer { text-align: center; padding: 40px 0; font-size: 12px; color: #94a3b8; font-weight: 500; }
 
         @media (max-width: 900px) {
             .sidebar { display: none; }
             .main { margin-left: 0; width: 100%; padding: 20px; }
-            .main-logo { width: 150px; }
+            .header-card h1 { font-size: 26px; }
         }
     </style>
 </head>
@@ -240,7 +247,7 @@
 
     <nav class="sidebar">
         <div class="brand">
-            <div class="logo-text">HelpDesk<span class="logo-dot">.</span></div>
+            <div class="logo-text">Helpdesk<span class="logo-dot">.</span></div>
             <div class="sub-text">CENTRAL SOLUTION</div>
         </div>
         
@@ -262,29 +269,28 @@
                 <div class="datetime" id="datetime"></div>
                 <img src="https://drive.google.com/thumbnail?id=1SINqv3envug8sIa6E9wtBMTZSF-NkaxY&sz=w1000" class="main-logo">
                 <h1>Issue Tracker Helpdesk</h1>
-                <p>Pusat Solusi Teknis & Troubleshooting Internal</p>
+                <p>Troubleshooting & Solution Portal</p>
             </header>
 
             <div class="search-wrapper">
                 <span class="search-icon">🔍</span>
-                <input id="search" placeholder="Cari solusi atau kode error..." autocomplete="off">
+                <input id="search" placeholder="Cari masalah, solusi, atau kode error..." autocomplete="off">
             </div>
 
             <div id="list">
-                <div style="text-align: center; padding: 80px 0; color: #cbd5e1;">
-                    <p style="font-size: 15px; font-weight: 500;">Silakan masukkan kata kunci pencarian.</p>
+                <div style="text-align: center; padding: 100px 0; color: #cbd5e1;">
+                    <p style="font-size: 15px; font-weight: 500;">Silakan masukkan kata kunci pencarian di atas.</p>
                 </div>
             </div>
 
             <footer class="footer">
-                &copy; <span id="year"></span> <b>HELPDESK </b> • All Rights Reserved.
+                &copy; <span id="year"></span> <b>HELPDESK ECOSYSTEM</b> • All Rights Reserved.
             </footer>
         </div>
     </main>
 
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
-        
         function updateTime() {
             const now = new Date();
             document.getElementById("datetime").textContent = now.toLocaleDateString('id-ID', {
@@ -312,11 +318,8 @@
         function render(data) {
             const list = document.getElementById("list");
             list.innerHTML = "";
-            
             if (!data.length) {
-                list.innerHTML = `<div style="text-align: center; padding: 80px 0; color: #94a3b8;">
-                                    <p>Data tidak ditemukan. Coba kata kunci lain.</p>
-                                  </div>`;
+                list.innerHTML = `<div style="text-align: center; padding: 80px 0; color: #94a3b8;"><p>Data tidak ditemukan. Coba kata kunci lain.</p></div>`;
                 return;
             }
 
@@ -339,7 +342,6 @@
                                 </div>` : ""}
                         </div>
                     </div>`;
-                
                 wrap.querySelector(".issue-trigger").onclick = () => {
                     const isOpen = wrap.classList.contains("open");
                     document.querySelectorAll(".issue-card").forEach(c => c.classList.remove("open"));
@@ -352,16 +354,10 @@
         document.getElementById("search").addEventListener("input", e => {
             const k = e.target.value.toLowerCase();
             if (!k) {
-                document.getElementById("list").innerHTML = `<div style="text-align: center; padding: 80px 0; color: #cbd5e1;">
-                    <p style="font-size: 15px; font-weight: 500;">Silakan masukkan kata kunci pencarian.</p>
-                </div>`;
+                document.getElementById("list").innerHTML = `<div style="text-align: center; padding: 100px 0; color: #cbd5e1;"><p style="font-size: 15px; font-weight: 500;">Silakan masukkan kata kunci pencarian di atas.</p></div>`;
                 return;
             }
-            const filtered = issues.filter(i => 
-                i.issue.toLowerCase().includes(k) || 
-                i.solusi.toLowerCase().includes(k)
-            );
-            render(filtered);
+            render(issues.filter(i => i.issue.toLowerCase().includes(k) || i.solusi.toLowerCase().includes(k)));
         });
     </script>
 </body>
