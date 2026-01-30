@@ -1,333 +1,363 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Issue Tracker Helpdesk</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Tracker Helpdesk</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
+        :root {
+            --primary: #0f172a;    /* Navy Gelap */
+            --accent: #38bdf8;     /* Sky Blue */
+            --sidebar-bg: #1e293b; /* Dark Slate */
+            --body-bg: #f8fafc;    /* Off-White */
+            --text-main: #334155;
+        }
 
-<style>
+        * { box-sizing: border-box; }
 
-:root{
---primary:#21c7bd;
---sidebar:#0fa5a0;
-}
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--body-bg);
+            display: flex;
+            color: var(--text-main);
+        }
 
-*{box-sizing:border-box}
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            padding: 30px 20px;
+            position: fixed;
+            height: 100%;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
 
-body{
-margin:0;
-font-family:Poppins,sans-serif;
-background:#fff;
-display:flex;
-}
+        .sidebar h3 {
+            font-size: 11px;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            opacity: 0.8;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
 
-/* SIDEBAR */
+        .sidebar a {
+            display: block;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 14px;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
 
-.sidebar{
-width:260px;
-background:linear-gradient(180deg,#21c7bd,#0fa5a0);
-padding:26px 20px;
-position:fixed;
-height:100%;
-box-shadow:4px 0 20px rgba(0,0,0,.08);
-}
+        .sidebar a:hover {
+            background: rgba(56, 189, 248, 0.1);
+            color: white;
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateX(5px);
+        }
 
-.sidebar h3{
-font-size:13px;
-opacity:.8;
-margin-bottom:16px;
-color:white;
-}
+        /* --- MAIN CONTENT --- */
+        .main {
+            margin-left: 260px;
+            width: 100%;
+            padding: 30px;
+        }
 
-.sidebar a{
-display:block;
-padding:12px 14px;
-margin-bottom:10px;
-border-radius:12px;
-text-decoration:none;
-color:#064e4b;
-background:white;
-transition:.3s;
-}
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
 
-.sidebar a:hover{
-background:#ccfbf1;
-transform:translateX(6px);
-}
+        /* --- HEADER (Ramping & Elegan) --- */
+        .header {
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 24px;
+            padding: 25px 20px; /* Padding diperkecil */
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+            overflow: hidden;
+        }
 
-/* MAIN */
+        /* Efek hiasan cahaya di header */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
+        }
 
-.main{
-margin-left:260px;
-width:100%;
-padding:30px;
-}
+        .datetime {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 500;
+        }
 
-.container{
-max-width:1100px;
-margin:auto;
-}
+        .header-logo {
+            width: 140px; /* Diperkecil agar proporsional */
+            margin-bottom: -5px; /* Mendekatkan ke tulisan */
+            filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.2));
+            animation: float 4s ease-in-out infinite;
+        }
 
-/* HEADER */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
 
-.header{
-position:relative;
-background:linear-gradient(135deg,#21c7bd,#5eead4);
-border-radius:28px;
-padding:22px 20px 20px;
-text-align:center;
-box-shadow:0 20px 50px rgba(0,0,0,.12);
-}
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
 
-.datetime{
-position:absolute;
-top:18px;
-right:22px;
-font-size:12px;
-color:white;
-opacity:.9;
-}
+        .header p {
+            margin: 2px 0 0;
+            color: #94a3b8;
+            font-size: 13px;
+        }
 
-/* LOGO */
+        /* --- SEARCH --- */
+        .search-wrap {
+            margin: 25px 0;
+        }
 
-.header-logo{
-width:260px;
-margin-bottom:0;
-animation:float 4s ease-in-out infinite;
-}
+        .search-wrap input {
+            width: 100%;
+            padding: 16px 25px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            font-size: 15px;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
 
-@keyframes float{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-8px)}
-}
+        .search-wrap input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+        }
 
-.header h1{
-margin:0;
-font-size:32px;
-font-weight:700;
-letter-spacing:.5px;
-color:#042f2e;
-}
+        /* --- ISSUE CARD --- */
+        .issue-item {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: 0.3s;
+        }
 
-.header p{
-margin-top:2px;
-color:#065f46;
-font-size:14px;
-}
+        .issue-header {
+            padding: 18px 22px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #1e293b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-/* SEARCH */
+        .issue-header:hover {
+            background: #f8fafc;
+            color: var(--accent);
+        }
 
-.search-wrap{
-margin:30px 0;
-}
+        .issue-header::after {
+            content: '+';
+            font-size: 20px;
+            color: #94a3b8;
+        }
 
-.search-wrap input{
-width:100%;
-padding:16px 20px;
-border-radius:18px;
-border:1px solid #ccfbf1;
-font-size:15px;
-}
+        .issue-item.open .issue-header::after {
+            content: '−';
+            color: var(--accent);
+        }
 
-.search-wrap input:focus{
-outline:none;
-box-shadow:0 0 0 4px rgba(45,212,191,.3);
-}
+        /* --- DETAIL --- */
+        .issue-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fff;
+            padding: 0 22px;
+        }
 
-/* ISSUE CARD */
+        .issue-item.open .issue-detail {
+            padding: 0 22px 22px;
+            max-height: 1000px;
+            border-top: 1px solid #f1f5f9;
+        }
 
-.issue-item{
-background:white;
-border-radius:18px;
-margin-bottom:18px;
-box-shadow:0 12px 28px rgba(0,0,0,.08);
-overflow:hidden;
-}
+        .issue-detail img {
+            width: 100%;
+            border-radius: 12px;
+            margin-top: 15px;
+            border: 1px solid #e2e8f0;
+        }
 
-.issue-header{
-padding:18px 22px;
-font-weight:600;
-cursor:pointer;
-color:#0f766e;
-}
+        .section h4 {
+            margin: 15px 0 8px;
+            color: var(--primary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-.issue-header:hover{
-background:#f0fdfa;
-}
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+            font-style: italic;
+        }
 
-/* DETAIL */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #94a3b8;
+            padding-bottom: 20px;
+        }
 
-.issue-detail{
-max-height:0;
-overflow:hidden;
-transition:.4s ease;
-background:#f8fffd;
-padding:0 22px;
-}
-
-.issue-item.open .issue-detail{
-padding:22px;
-max-height:800px;
-}
-
-.issue-detail img{
-width:100%;
-border-radius:16px;
-margin-top:14px;
-}
-
-.section h4{
-margin:0 0 6px;
-color:#0f766e;
-}
-
-.empty{
-text-align:center;
-padding:30px;
-color:#64748b;
-}
-
-.footer{
-text-align:center;
-margin-top:40px;
-font-size:13px;
-color:#64748b;
-}
-
-/* MOBILE */
-
-@media(max-width:900px){
-body{flex-direction:column}
-.sidebar{position:relative;width:100%}
-.main{margin-left:0}
-}
-
-</style>
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            .sidebar { position: relative; width: 100%; height: auto; padding: 20px; }
+            .main { margin-left: 0; padding: 20px; }
+            .header { border-radius: 20px; }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="sidebar">
+    <div class="sidebar">
+        <h3>DOKUMENTASI</h3>
+        <a href="https://developers.facebook.com/docs/marketing-api/error-reference?locale=id_ID" target="_blank">Marketing API</a>
+        <a href="https://developers.facebook.com/docs/whatsapp/on-premises/sunset" target="_blank">WhatsApp</a>
+        <a href="https://developers.facebook.com/docs/graph-api/guides/error-handling" target="_blank">Graph API</a>
+        <a href="https://developers.facebook.com/docs/messenger-platform/error-codes/" target="_blank">Messenger</a>
+        <a href="https://developers.facebook.com/documentation/business-messaging/whatsapp/support/error-codes" target="_blank">Cloud API</a>
+        
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);">
+            <a href="https://docs.google.com/presentation/d/11juAD4KUHTNJ78kRXdotFl3rBwXIyRRU/edit?usp=sharing" target="_blank">📊 Report PPT</a>
+        </div>
+    </div>
 
-<h3>DOKUMENTASI</h3>
+    <div class="main">
+        <div class="container">
+            <div class="header">
+                <div class="datetime" id="datetime"></div>
+                <img src="https://drive.google.com/thumbnail?id=1SINqv3envug8sIa6E9wtBMTZSF-NkaxY&sz=w600" class="header-logo">
+                <h1>Issue Tracker Helpdesk</h1>
+                <p>Pusat Solusi Internal</p>
+            </div>
 
-<a href="https://developers.facebook.com/docs/marketing-api/error-reference?locale=id_ID" target="_blank">Marketing API</a>
-<a href="https://developers.facebook.com/docs/whatsapp/on-premises/sunset" target="_blank">WhatsApp</a>
-<a href="https://developers.facebook.com/docs/graph-api/guides/error-handling" target="_blank">Graph API</a>
-<a href="https://developers.facebook.com/docs/messenger-platform/error-codes/" target="_blank">Messenger</a>
-<a href="https://developers.facebook.com/documentation/business-messaging/whatsapp/support/error-codes" target="_blank">Cloud API</a>
+            <div class="search-wrap">
+                <input id="search" placeholder="Cari masalah atau kode error...">
+            </div>
 
-<a href="https://docs.google.com/presentation/d/11juAD4KUHTNJ78kRXdotFl3rBwXIyRRU/edit?usp=sharing" target="_blank">📊 Report PPT</a>
+            <div id="list" class="empty">
+                Silakan ketik kata kunci untuk mencari issue
+            </div>
 
-</div>
+            <div class="footer">
+                &copy; <span id="year"></span> Helpdesk Team • Ivosights Solutions
+            </div>
+        </div>
+    </div>
 
-<div class="main">
-<div class="container">
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
 
-<div class="header">
+        function updateTime() {
+            document.getElementById("datetime").textContent = 
+                new Date().toLocaleString("id-ID", {
+                    weekday: "short", day: "2-digit", month: "short",
+                    hour: "2-digit", minute: "2-digit",
+                    timeZone: "Asia/Jakarta"
+                }) + " WIB";
+        }
+        setInterval(updateTime, 1000); updateTime();
 
-<div class="datetime" id="datetime"></div>
+        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQCLXvz4_F7EfUppPoKWSKQawlesCjiYHhceQCIEDoV8ntbDjFrvKUorP416AGydpWYmxWlOLA3b1JL/pub?gid=0&single=true&output=csv";
 
-<img src="https://drive.google.com/thumbnail?id=1SINqv3envug8sIa6E9wtBMTZSF-NkaxY&sz=w600" class="header-logo">
+        let issues = [];
 
-<h1>Issue Tracker Helpdesk</h1>
-<p>Pusat Solusi Internal</p>
+        Papa.parse(SHEET_URL, {
+            download: true,
+            header: true,
+            complete: r => {
+                issues = r.data.map(x => ({
+                    issue: (x.issue || "").trim(),
+                    solusi: (x.solusi || "").trim(),
+                    image_id: (x.image_id || "").trim()
+                })).filter(i => i.issue);
+            }
+        });
 
-</div>
+        const nl = t => t.replace(/\n/g, "<br>");
 
-<div class="search-wrap">
-<input id="search" placeholder="Cari issue...">
-</div>
+        function render(data) {
+            const list = document.getElementById("list");
+            list.innerHTML = "";
 
-<div id="list" class="empty">
-Ketik kata kunci untuk mencari issue
-</div>
+            if (!data.length) {
+                list.innerHTML = "<div class='empty'>Issue tidak ditemukan. Coba kata kunci lain.</div>";
+                return;
+            }
 
-<div class="footer">
-© Helpdesk <span id="year"></span>
-</div>
+            data.forEach(item => {
+                const wrap = document.createElement("div");
+                wrap.className = "issue-item";
 
-</div>
-</div>
+                wrap.innerHTML = `
+                    <div class="issue-header">${item.issue}</div>
+                    <div class="issue-detail">
+                        <div class="section">
+                            <h4>Solusi Terverifikasi</h4>
+                            <div style="line-height: 1.6;">${nl(item.solusi)}</div>
+                        </div>
+                        ${item.image_id ? `<img src="https://drive.google.com/thumbnail?id=${item.image_id}&sz=w1200" alt="Panduan Visual">` : ""}
+                    </div>`;
 
-<script>
+                wrap.querySelector(".issue-header").onclick = () => {
+                    const isOpen = wrap.classList.contains("open");
+                    // Close other items if you want accordion effect, or just toggle:
+                    wrap.classList.toggle("open");
+                };
 
-document.getElementById("year").textContent=new Date().getFullYear();
+                list.appendChild(wrap);
+            });
+        }
 
-function updateTime(){
-document.getElementById("datetime").textContent=
-new Date().toLocaleString("id-ID",{
-weekday:"short",day:"2-digit",month:"short",
-hour:"2-digit",minute:"2-digit",
-timeZone:"Asia/Jakarta"
-})+" WIB";
-}
-setInterval(updateTime,1000);updateTime();
-
-const SHEET_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQCLXvz4_F7EfUppPoKWSKQawlesCjiYHhceQCIEDoV8ntbDjFrvKUorP416AGydpWYmxWlOLA3b1JL/pub?gid=0&single=true&output=csv";
-
-let issues=[];
-
-Papa.parse(SHEET_URL,{
-download:true,
-header:true,
-complete:r=>{
-issues=r.data.map(x=>({
-issue:(x.issue||"").trim(),
-solusi:(x.solusi||"").trim(),
-image_id:(x.image_id||"").trim()
-})).filter(i=>i.issue);
-}
-});
-
-const nl=t=>t.replace(/\n/g,"<br>");
-
-function render(data){
-
-const list=document.getElementById("list");
-list.innerHTML="";
-
-if(!data.length){
-list.innerHTML="<div class='empty'>Issue tidak ditemukan</div>";
-return;
-}
-
-data.forEach(item=>{
-
-const wrap=document.createElement("div");
-wrap.className="issue-item";
-
-wrap.innerHTML=`
-<div class="issue-header">${item.issue}</div>
-<div class="issue-detail">
-<div class="section">
-<h4>Solusi</h4>
-${nl(item.solusi)}
-</div>
-${item.image_id?`<img src="https://drive.google.com/thumbnail?id=${item.image_id}&sz=w1200">`:""}
-</div>`;
-
-wrap.querySelector(".issue-header").onclick=()=>{
-wrap.classList.toggle("open");
-};
-
-list.appendChild(wrap);
-
-});
-}
-
-document.getElementById("search").addEventListener("input",e=>{
-const k=e.target.value.toLowerCase();
-if(!k){
-document.getElementById("list").innerHTML="<div class='empty'>Ketik kata kunci untuk mencari issue</div>";
-return;
-}
-render(issues.filter(i=>i.issue.toLowerCase().includes(k)));
-});
-
-</script>
-
+        document.getElementById("search").addEventListener("input", e => {
+            const k = e.target.value.toLowerCase();
+            if (!k) {
+                document.getElementById("list").innerHTML = "<div class='empty'>Silakan ketik kata kunci untuk mencari issue</div>";
+                return;
+            }
+            const filtered = issues.filter(i => i.issue.toLowerCase().includes(k) || i.solusi.toLowerCase().includes(k));
+            render(filtered);
+        });
+    </script>
 </body>
 </html>
