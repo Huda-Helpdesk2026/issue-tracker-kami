@@ -3,239 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Issue Tracker Helpdesk</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Issue Tracker Helpdesk | Ivosights</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
     <style>
         :root {
-            --primary: #0284c7;    /* Biru Cerah */
-            --bg-body: #f1f5f9;    /* Abu muda sangat cerah */
-            --sidebar-bg: #ffffff; /* Putih bersih */
-            --text-main: #1e293b;  /* Biru gelap solid */
-            --text-muted: #64748b;
+            --primary-gradient: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            --sidebar-color: #ffffff;
+            --bg-color: #f4f7fa;
+            --text-dark: #2d3748;
+            --accent-color: #00b4d8;
+            --card-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; font-style: normal !important; }
 
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: var(--bg-body);
+            background: var(--bg-color);
             display: flex;
-            color: var(--text-main);
+            color: var(--text-dark);
+            min-height: 100vh;
         }
 
-        /* --- SIDEBAR (Putih & Minimalis) --- */
+        /* --- SIDEBAR PREMIUM --- */
         .sidebar {
-            width: 260px;
-            background: var(--sidebar-bg);
-            padding: 30px 20px;
+            width: 280px;
+            background: var(--sidebar-color);
+            padding: 40px 24px;
             position: fixed;
             height: 100%;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.03);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.02);
             z-index: 100;
-            border-right: 1px solid #e2e8f0;
+            border-right: 1px solid rgba(0,0,0,0.05);
         }
 
         .sidebar h3 {
-            font-size: 12px;
-            letter-spacing: 1px;
-            color: var(--primary);
-            margin-bottom: 25px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #a0aec0;
+            margin-bottom: 30px;
             font-weight: 700;
         }
 
         .sidebar a {
-            display: block;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            border-radius: 16px;
             text-decoration: none;
-            color: var(--text-muted);
+            color: #4a5568;
             font-size: 14px;
             font-weight: 500;
-            transition: 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .sidebar a:hover {
             background: #f0f9ff;
-            color: var(--primary);
-            transform: translateX(5px);
+            color: var(--accent-color);
+            transform: translateX(8px);
         }
 
-        /* --- MAIN CONTENT --- */
+        /* --- MAIN AREA --- */
         .main {
-            margin-left: 260px;
+            margin-left: 280px;
             width: 100%;
-            padding: 40px;
+            padding: 50px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: auto;
         }
 
-        /* --- HEADER (Biru Langit & Pendek) --- */
+        /* --- HEADER (Visual Fokus) --- */
         .header {
             position: relative;
-            background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
-            border-radius: 24px;
-            padding: 20px; /* Diperkecil sesuai request */
+            background: var(--primary-gradient);
+            border-radius: 40px;
+            padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.15);
+            box-shadow: 0 20px 40px rgba(58, 123, 213, 0.25);
+            margin-bottom: -60px; /* Overlap dengan search */
+            z-index: 1;
         }
 
         .datetime {
             position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 11px;
-            color: white;
-            font-weight: 500;
-            background: rgba(255,255,255,0.2);
-            padding: 4px 10px;
-            border-radius: 20px;
+            top: 25px;
+            right: 35px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 16px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
         }
 
         .header-logo {
-            width: 110px; /* Lebih kecil & proporsional */
-            margin-bottom: 2px; /* Jarak sangat dekat ke tulisan */
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            width: 320px; /* Diperbesar dan diperlebar */
+            max-width: 80%;
+            margin-bottom: 5px;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+            transition: transform 0.5s ease;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05);
         }
 
         .header h1 {
             margin: 0;
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 32px;
+            font-weight: 800;
             color: white;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .header p {
-            margin: 0;
-            color: white;
-            opacity: 0.9;
-            font-size: 13px;
-            font-weight: 400;
+            margin: 5px 0 0;
+            color: rgba(255,255,255,0.85);
+            font-size: 15px;
+            font-weight: 300;
         }
 
-        /* --- SEARCH BAR --- */
+        /* --- SEARCH BOX (Floating) --- */
         .search-wrap {
-            margin: 25px 0;
+            position: relative;
+            z-index: 10;
+            margin-top: 20px;
+            width: 85%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .search-wrap input {
             width: 100%;
-            padding: 18px 25px;
-            border-radius: 18px;
-            border: 2px solid #e2e8f0;
-            font-size: 15px;
+            padding: 24px 35px;
+            border-radius: 25px;
+            border: none;
+            font-size: 17px;
             background: white;
-            transition: 0.3s;
-            font-family: inherit;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            color: var(--text-dark);
         }
 
         .search-wrap input:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+            box-shadow: 0 20px 50px rgba(58, 123, 213, 0.15);
+            transform: translateY(-2px);
         }
 
-        /* --- ISSUE CARD --- */
+        /* --- LIST & CARDS --- */
+        #list {
+            margin-top: 40px;
+        }
+
         .issue-item {
             background: white;
-            border-radius: 18px;
-            margin-bottom: 12px;
-            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(226, 232, 240, 0.6);
             overflow: hidden;
-            transition: 0.2s;
+            transition: all 0.3s ease;
         }
 
         .issue-item:hover {
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.04);
+            border-color: var(--accent-color);
         }
 
         .issue-header {
-            padding: 20px 25px;
+            padding: 25px 30px;
             font-weight: 600;
             cursor: pointer;
-            color: var(--text-main);
+            color: #1a202c;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 16px;
+        }
+
+        .issue-header:hover {
+            color: var(--accent-color);
         }
 
         .issue-header::after {
-            content: '→';
-            font-size: 18px;
-            color: var(--primary);
-            transition: 0.3s;
+            content: '';
+            width: 24px;
+            height: 24px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233a7bd5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E") no-repeat center;
+            transition: 0.4s;
         }
 
         .issue-item.open .issue-header::after {
-            transform: rotate(90deg);
+            transform: rotate(180deg);
         }
 
-        /* --- DETAIL (Teks Tegak / Tidak Miring) --- */
         .issue-detail {
             max-height: 0;
             overflow: hidden;
-            transition: 0.3s ease-out;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
             background: #fcfdfe;
-            padding: 0 25px;
-            font-style: normal; /* Memastikan tidak miring */
+            padding: 0 35px;
         }
 
         .issue-item.open .issue-detail {
-            padding: 0 25px 25px;
-            max-height: 1200px;
-            border-top: 1px solid #f1f5f9;
+            max-height: 2000px;
+            padding: 10px 35px 35px;
+            border-top: 1px solid #edf2f7;
+        }
+
+        .section h4 {
+            margin: 25px 0 12px;
+            color: var(--accent-color);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+        }
+
+        .section div {
+            line-height: 1.8;
+            font-size: 15px;
+            color: #4a5568;
         }
 
         .issue-detail img {
             width: 100%;
-            border-radius: 16px;
-            margin-top: 20px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .section h4 {
-            margin: 20px 0 10px;
-            color: var(--primary);
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .section div {
-            font-style: normal; /* Teks solusi tegak */
-            line-height: 1.7;
-            font-size: 14px;
-            color: #475569;
+            border-radius: 20px;
+            margin-top: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border: 4px solid white;
         }
 
         .empty {
             text-align: center;
-            padding: 80px 20px;
-            color: var(--text-muted);
-            font-style: normal; /* Tidak miring */
-            font-size: 15px;
+            padding: 100px 20px;
+            color: #a0aec0;
+            font-size: 16px;
+            background: white;
+            border-radius: 30px;
+            margin-top: 50px;
         }
 
         .footer {
             text-align: center;
-            margin-top: 50px;
-            font-size: 12px;
-            color: var(--text-muted);
-            padding-bottom: 30px;
+            margin-top: 60px;
+            font-size: 13px;
+            color: #718096;
+            padding-bottom: 40px;
         }
 
-        /* --- MOBILE --- */
+        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             body { flex-direction: column; }
-            .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid #e2e8f0; }
-            .main { margin-left: 0; padding: 20px; }
+            .sidebar { position: relative; width: 100%; height: auto; padding: 25px; border-bottom: 1px solid #edf2f7; }
+            .main { margin-left: 0; padding: 25px; }
+            .header-logo { width: 200px; }
+            .header h1 { font-size: 24px; }
         }
     </style>
 </head>
@@ -243,37 +277,40 @@
 <body>
 
     <div class="sidebar">
-        <h3>DOKUMENTASI</h3>
+        <h3>Pusat Navigasi</h3>
         <a href="https://developers.facebook.com/docs/marketing-api/error-reference?locale=id_ID" target="_blank">Marketing API</a>
-        <a href="https://developers.facebook.com/docs/whatsapp/on-premises/sunset" target="_blank">WhatsApp</a>
+        <a href="https://developers.facebook.com/docs/whatsapp/on-premises/sunset" target="_blank">WhatsApp Platform</a>
         <a href="https://developers.facebook.com/docs/graph-api/guides/error-handling" target="_blank">Graph API</a>
-        <a href="https://developers.facebook.com/docs/messenger-platform/error-codes/" target="_blank">Messenger</a>
+        <a href="https://developers.facebook.com/docs/messenger-platform/error-codes/" target="_blank">Messenger API</a>
         <a href="https://developers.facebook.com/documentation/business-messaging/whatsapp/support/error-codes" target="_blank">Cloud API</a>
         
-        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #f1f5f9;">
-            <a href="https://docs.google.com/presentation/d/11juAD4KUHTNJ78kRXdotFl3rBwXIyRRU/edit?usp=sharing" target="_blank">📊 Report PPT</a>
+        <div style="margin-top: 30px; padding-top: 30px; border-top: 2px solid #f7fafc;">
+            <a href="https://docs.google.com/presentation/d/11juAD4KUHTNJ78kRXdotFl3rBwXIyRRU/edit?usp=sharing" target="_blank" style="background: #e0f2fe; color: #0369a1;">
+                📊 Analytics Report
+            </a>
         </div>
     </div>
 
     <div class="main">
         <div class="container">
+            
             <div class="header">
                 <div class="datetime" id="datetime"></div>
-                <img src="https://drive.google.com/thumbnail?id=1SINqv3envug8sIa6E9wtBMTZSF-NkaxY&sz=w600" class="header-logo">
+                <img src="https://drive.google.com/thumbnail?id=1SINqv3envug8sIa6E9wtBMTZSF-NkaxY&sz=w1000" class="header-logo">
                 <h1>Issue Tracker Helpdesk</h1>
-                <p>Pusat Solusi Internal Ivosights</p>
+                <p>Enterprise Support Solution by Ivosights</p>
             </div>
 
             <div class="search-wrap">
-                <input id="search" placeholder="Cari issue atau solusi...">
+                <input id="search" placeholder="Cari kode error, masalah, atau solusi...">
             </div>
 
             <div id="list" class="empty">
-                Ketik kata kunci di atas untuk mencari solusi masalah.
+                Selamat Datang. Masukkan kata kunci untuk mencari database issue.
             </div>
 
             <div class="footer">
-                &copy; <span id="year"></span> Helpdesk Team • Professional Solution
+                &copy; <span id="year"></span> Ivosights • Helpdesk System v2.0
             </div>
         </div>
     </div>
@@ -284,8 +321,8 @@
         function updateTime() {
             document.getElementById("datetime").textContent = 
                 new Date().toLocaleString("id-ID", {
-                    weekday: "short", day: "2-digit", month: "short",
-                    hour: "2-digit", minute: "2-digit",
+                    weekday: "long", day: "2-digit", month: "long",
+                    hour: "2-digit", minute: "2-digit", second: "2-digit",
                     timeZone: "Asia/Jakarta"
                 }) + " WIB";
         }
@@ -314,7 +351,7 @@
             list.innerHTML = "";
 
             if (!data.length) {
-                list.innerHTML = "<div class='empty'>Maaf, issue tidak ditemukan.</div>";
+                list.innerHTML = "<div class='empty'>Kami tidak dapat menemukan issue tersebut. Silakan periksa kembali kata kunci Anda.</div>";
                 return;
             }
 
@@ -326,14 +363,17 @@
                     <div class="issue-header">${item.issue}</div>
                     <div class="issue-detail">
                         <div class="section">
-                            <h4>Langkah Solusi</h4>
+                            <h4>Prosedur Penyelesaian</h4>
                             <div>${nl(item.solusi)}</div>
                         </div>
-                        ${item.image_id ? `<img src="https://drive.google.com/thumbnail?id=${item.image_id}&sz=w1200">` : ""}
+                        ${item.image_id ? `<img src="https://drive.google.com/thumbnail?id=${item.image_id}&sz=w1200" alt="Panduan Visual">` : ""}
                     </div>`;
 
                 wrap.querySelector(".issue-header").onclick = () => {
-                    wrap.classList.toggle("open");
+                    const isOpen = wrap.classList.contains("open");
+                    // Accordion mode (tutup yang lain jika satu dibuka)
+                    document.querySelectorAll('.issue-item').forEach(el => el.classList.remove('open'));
+                    if(!isOpen) wrap.classList.add("open");
                 };
 
                 list.appendChild(wrap);
@@ -343,10 +383,11 @@
         document.getElementById("search").addEventListener("input", e => {
             const k = e.target.value.toLowerCase();
             if (!k) {
-                document.getElementById("list").innerHTML = "<div class='empty'>Ketik kata kunci di atas untuk mencari solusi masalah.</div>";
+                document.getElementById("list").innerHTML = "<div class='empty'>Selamat Datang. Masukkan kata kunci untuk mencari database issue.</div>";
                 return;
             }
-            render(issues.filter(i => i.issue.toLowerCase().includes(k) || i.solusi.toLowerCase().includes(k)));
+            const filtered = issues.filter(i => i.issue.toLowerCase().includes(k) || i.solusi.toLowerCase().includes(k));
+            render(filtered);
         });
     </script>
 </body>
