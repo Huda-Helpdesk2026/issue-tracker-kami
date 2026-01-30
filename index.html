@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <title>Issue Tracker Helpdesk</title>
 
-<!-- GOOGLE FONTS (MODERN & CLEAN) -->
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
 <style>
 :root{
- --primary:#2563eb;
+ --primary:#1e3a8a;
  --secondary:#0ea5e9;
  --accent:#22c55e;
- --bg:#eef2ff;
- --card:#ffffff;
- --dark:#0f172a;
+ --bg:#f8fafc;
+ --soft:#f1f5f9;
+ --dark:#020617;
  --text:#334155;
 }
 
@@ -25,35 +25,40 @@
 body{
  margin:0;
  font-family:"Inter",sans-serif;
- background:linear-gradient(135deg,#e0e7ff,#f8fafc);
+ background:linear-gradient(135deg,#e0f2fe,#f8fafc);
  color:var(--text);
  display:flex;
 }
 
-/* ===== SIDEBAR ===== */
+/* ================= SIDEBAR ================= */
 .sidebar{
  width:300px;
- background:linear-gradient(180deg,#1e3a8a,#2563eb,#0ea5e9);
+ background:
+  linear-gradient(180deg,#020617,#020617),
+  linear-gradient(135deg,#1e3a8a,#0ea5e9);
+ background-blend-mode:overlay;
  color:#fff;
- padding:28px 22px;
+ padding:26px 20px;
  position:fixed;
  inset:0 auto 0 0;
- box-shadow:6px 0 28px rgba(0,0,0,.25);
+ overflow-y:auto;
+ box-shadow:8px 0 40px rgba(2,6,23,.45);
 }
 
 .sidebar h3{
- font-family:"Plus Jakarta Sans",sans-serif;
+ font-family:"Space Grotesk",sans-serif;
  font-size:14px;
- letter-spacing:.5px;
- margin:0 0 20px;
- opacity:.95;
+ letter-spacing:.6px;
+ margin:0 0 18px;
+ opacity:.9;
+ text-transform:uppercase;
 }
 
 .sidebar a{
  display:block;
  padding:14px 16px;
  margin-bottom:12px;
- background:rgba(255,255,255,.14);
+ background:rgba(255,255,255,.12);
  border-radius:14px;
  color:#fff;
  text-decoration:none;
@@ -62,98 +67,89 @@ body{
 }
 
 .sidebar a:hover{
- background:rgba(255,255,255,.28);
+ background:rgba(255,255,255,.25);
  transform:translateX(6px);
- box-shadow:0 10px 22px rgba(0,0,0,.25);
+ box-shadow:0 12px 22px rgba(0,0,0,.25);
 }
 
-/* ===== MAIN ===== */
+/* ================= MAIN ================= */
 .main{
  margin-left:300px;
  width:100%;
- padding:42px;
+ padding:40px;
 }
 
-/* CONTAINER */
 .container{
  max-width:1100px;
  margin:auto;
- background:rgba(255,255,255,.96);
+ background:#fff;
  border-radius:28px;
- padding:40px;
- box-shadow:0 30px 70px rgba(0,0,0,.18);
+ padding:38px;
+ box-shadow:0 40px 80px rgba(2,6,23,.18);
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 .header{
  text-align:center;
- padding:46px 20px;
- border-radius:26px;
- background:linear-gradient(135deg,#2563eb,#0ea5e9);
+ padding:40px 20px;
+ border-radius:24px;
+ background:
+  radial-gradient(circle at top,rgba(255,255,255,.3),transparent 60%),
+  linear-gradient(135deg,#1e3a8a,#0ea5e9);
  color:#fff;
- font-family:"Plus Jakarta Sans",sans-serif;
+ font-family:"Space Grotesk",sans-serif;
  position:relative;
  overflow:hidden;
+ box-shadow:0 24px 60px rgba(2,6,23,.45);
 }
 
 .header h1{
- margin:10px 0 6px;
- font-weight:700;
- letter-spacing:.3px;
-}
-
-.header p{
- margin:0;
- font-size:14px;
- opacity:.95;
-}
-
-/* ICON MODERN */
-.icon-wrap{
- display:inline-flex;
- gap:14px;
- margin-bottom:14px;
-}
-
-.icon{
- width:30px;
- height:30px;
- stroke:#ffffff;
- opacity:.95;
- filter:drop-shadow(0 6px 14px rgba(0,0,0,.4));
-}
-
-/* BOOK */
-.book{
- animation:bookFloat 5s ease-in-out infinite;
-}
-
-/* GEAR */
-.gear{
- animation:gearSoft 8s ease-in-out infinite;
- transform-origin:center;
-}
-
-@keyframes bookFloat{
- 0%,100%{transform:translateY(0)}
- 50%{transform:translateY(-4px)}
-}
-
-@keyframes gearSoft{
- 0%{transform:rotate(0)}
- 50%{transform:rotate(180deg)}
- 100%{transform:rotate(360deg)}
+ margin:12px 0 4px;
+ font-size:34px;
 }
 
 .datetime{
  margin-top:14px;
- font-size:13px;
- opacity:.95;
+ font-size:14px;
+ opacity:.85;
 }
 
-/* SEARCH */
+/* ================= ICON ================= */
+.icon-wrap{
+ display:flex;
+ justify-content:center;
+ gap:14px;
+ margin-bottom:8px;
+}
+
+.icon{
+ width:26px;
+ height:26px;
+ filter:drop-shadow(0 4px 8px rgba(0,0,0,.35));
+}
+
+/* ANIMATION */
+.book{
+ animation:bookFloat 5s ease-in-out infinite;
+}
+
+.gear{
+ animation:gearSpin 10s linear infinite;
+}
+
+@keyframes bookFloat{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-6px)}
+}
+
+@keyframes gearSpin{
+ from{transform:rotate(0)}
+ to{transform:rotate(360deg)}
+}
+
+/* ================= SEARCH ================= */
 .search-wrap{
- margin:40px 0;
+ margin:36px 0;
 }
 
 .search-wrap input{
@@ -163,7 +159,6 @@ body{
  border:1px solid #c7d2fe;
  font-size:15px;
  outline:none;
- transition:.3s;
 }
 
 .search-wrap input:focus{
@@ -171,43 +166,31 @@ body{
  box-shadow:0 0 0 5px rgba(14,165,233,.25);
 }
 
-/* ISSUE CARD */
+/* ================= ISSUE ================= */
 .issue-item{
- margin-bottom:24px;
+ margin-bottom:22px;
  border-radius:22px;
- background:var(--card);
- box-shadow:0 18px 38px rgba(0,0,0,.14);
+ background:#fff;
+ box-shadow:0 18px 40px rgba(2,6,23,.12);
  overflow:hidden;
- transition:.3s;
-}
-
-.issue-item:hover{
- transform:translateY(-2px);
 }
 
 .issue-header{
  padding:22px 26px;
  cursor:pointer;
- display:flex;
- justify-content:space-between;
  font-weight:600;
- color:var(--dark);
-}
-
-.issue-header:hover{
- background:#f1f5ff;
 }
 
 .issue-detail{
  display:none;
  padding:26px;
- border-top:1px dashed #c7d2fe;
- background:#f8fafc;
- line-height:1.7;
+ border-top:1px dashed #bae6fd;
+ background:#f8fbff;
+ line-height:1.8;
 }
 
-.issue-detail h4{
- margin:0 0 10px;
+.section h4{
+ font-family:"Space Grotesk",sans-serif;
  color:var(--primary);
 }
 
@@ -215,33 +198,20 @@ img{
  width:100%;
  border-radius:18px;
  margin-top:18px;
- box-shadow:0 14px 30px rgba(0,0,0,.22);
+ box-shadow:0 14px 32px rgba(2,6,23,.25);
 }
 
 .empty{
  text-align:center;
- color:#64748b;
  padding:36px;
+ color:#64748b;
 }
 
 .footer{
  text-align:center;
- margin-top:50px;
+ margin-top:48px;
  font-size:13px;
  color:#64748b;
-}
-
-/* RESPONSIVE */
-@media(max-width:900px){
- body{flex-direction:column}
- .sidebar{
-  position:relative;
-  width:100%;
- }
- .main{
-  margin-left:0;
-  padding:24px;
- }
 }
 </style>
 </head>
@@ -250,143 +220,111 @@ img{
 
 <!-- SIDEBAR -->
 <div class="sidebar">
- <h3>📚 Dokumentasi & Report</h3>
-
- <a href="https://developers.facebook.com/docs/marketing-api/error-reference?locale=id_ID" target="_blank">
-  Kode Kesalahan<br><small>Marketing API</small>
- </a>
-
- <a href="https://developers.facebook.com/docs/whatsapp/on-premises/sunset" target="_blank">
-  Catatan Perubahan<br><small>On-Premises API</small>
- </a>
-
- <a href="https://developers.facebook.com/docs/graph-api/guides/error-handling" target="_blank">
-  Penanganan Kesalahan<br><small>Graph API</small>
- </a>
-
- <a href="https://developers.facebook.com/docs/messenger-platform/error-codes/" target="_blank">
-  Error Code<br><small>Messenger Platform</small>
- </a>
-
- <a href="https://developers.facebook.com/documentation/business-messaging/whatsapp/support/error-codes" target="_blank">
-  Kode Kesalahan<br><small>Cloud API WhatsApp</small>
- </a>
-
- <a href="https://docs.google.com/presentation/d/11juAD4KUHTNJ78kRXdotFl3rBwXIyRRU/edit?usp=sharing" target="_blank"
-    style="background:rgba(34,197,94,.35)">
-  📊 Report PPT<br><small>Klik untuk membuka</small>
- </a>
+ <h3>Dokumentasi & Report</h3>
+ <a href="https://developers.facebook.com/docs/marketing-api/error-reference?locale=id_ID" target="_blank">Marketing API Error</a>
+ <a href="https://developers.facebook.com/docs/whatsapp/on-premises/sunset" target="_blank">WhatsApp On-Prem API</a>
+ <a href="https://developers.facebook.com/docs/graph-api/guides/error-handling" target="_blank">Graph API Error</a>
+ <a href="https://developers.facebook.com/docs/messenger-platform/error-codes/" target="_blank">Messenger Error</a>
+ <a href="https://docs.google.com/presentation/d/11juAD4KUHTNJ78kRXdotFl3rBwXIyRRU/edit?usp=sharing" target="_blank" style="background:rgba(34,197,94,.35)">📊 Report PPT</a>
 </div>
 
-<!-- MAIN -->
 <div class="main">
- <div class="container">
+<div class="container">
 
-  <div class="header">
+<div class="header">
+ <div class="icon-wrap">
 
-   <div class="icon-wrap">
+  <!-- COLORFUL BOOK -->
+  <svg class="icon book" viewBox="0 0 24 24">
+   <defs>
+    <linearGradient id="bookGrad" x1="0" y1="0" x2="1" y2="1">
+     <stop offset="0%" stop-color="#22c55e"/>
+     <stop offset="50%" stop-color="#0ea5e9"/>
+     <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+   </defs>
+   <path d="M4 5a2 2 0 012-2h12v16H6a2 2 0 01-2-2V5z" fill="url(#bookGrad)"/>
+   <path d="M8 7h7M8 11h7M8 15h5" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+  </svg>
 
-    <!-- BOOK ICON -->
-    <svg class="icon book" viewBox="0 0 24 24" fill="none">
-     <path d="M4 6.5C4 5.12 5.12 4 6.5 4H20V20H6.5C5.12 20 4 18.88 4 17.5V6.5Z"
-           stroke-width="1.6"/>
-     <path d="M8 8H16M8 12H16M8 16H13"
-           stroke-width="1.6" stroke-linecap="round"/>
-    </svg>
-
-    <!-- GEAR ICON -->
-    <svg class="icon gear" viewBox="0 0 24 24" fill="none">
-     <circle cx="12" cy="12" r="2.8" stroke-width="1.6"/>
-     <path d="M19.4 13.5L21 9.3L19.3 6.4L17.5 7.1L15.3 6L15 4H9L8.7 6L6.5 7.1L4.7 6.4L3 9.3L4.6 10.5L4.6 13.5L3 14.7L4.7 17.6L6.5 16.9L8.7 18L9 20H15L15.3 18L17.5 16.9L19.3 17.6L21 14.7Z"
-           stroke-width="1.3" stroke-linejoin="round"/>
-    </svg>
-
-   </div>
-
-   <h1>Issue Tracker Helpdesk</h1>
-   <p>Pusat solusi internal & dokumentasi teknis</p>
-   <div class="datetime" id="datetime"></div>
-
-  </div>
-
-  <div class="search-wrap">
-   <input id="search" placeholder="Cari issue atau error...">
-  </div>
-
-  <div id="list" class="empty">
-   Ketik kata kunci untuk mencari issue
-  </div>
-
-  <div class="footer">
-   © Helpdesk <span id="year"></span>
-  </div>
+  <!-- MODERN GEAR -->
+  <svg class="icon gear" viewBox="0 0 24 24" fill="none">
+   <circle cx="12" cy="12" r="3.5" stroke="#e0f2fe" stroke-width="1.6"/>
+   <path d="M19 12a7 7 0 00-.1-1l2-1.2-2-3.4-2.2.8a7 7 0 00-1.6-1l-.3-2.3H9.2l-.3 2.3a7 7 0 00-1.6 1l-2.2-.8-2 3.4 2 1.2a7 7 0 000 2l-2 1.2 2 3.4 2.2-.8a7 7 0 001.6 1l.3 2.3h5.6l.3-2.3a7 7 0 001.6-1l2.2.8 2-3.4-2-1.2c.1-.3.1-.6.1-1z"
+         stroke="#bae6fd" stroke-width="1.3" stroke-linejoin="round"/>
+  </svg>
 
  </div>
+
+ <h1>Issue Tracker Helpdesk</h1>
+ <p>Pusat Solusi Internal</p>
+ <div class="datetime" id="datetime"></div>
+</div>
+
+<div class="search-wrap">
+ <input id="search" placeholder="Cari issue atau error...">
+</div>
+
+<div id="list" class="empty">Ketik kata kunci untuk mencari issue</div>
+<div class="footer">© Helpdesk <span id="year"></span></div>
+
+</div>
 </div>
 
 <script>
 document.getElementById("year").textContent=new Date().getFullYear();
 
-/* DATETIME JAKARTA */
 function updateTime(){
- const now=new Date();
  document.getElementById("datetime").textContent=
-  now.toLocaleString("id-ID",{
-   weekday:"long",
-   year:"numeric",
-   month:"long",
-   day:"numeric",
-   hour:"2-digit",
-   minute:"2-digit",
-   second:"2-digit",
-   timeZone:"Asia/Jakarta"
-  })+" WIB";
+ new Date().toLocaleString("id-ID",{
+  weekday:"long",year:"numeric",month:"long",day:"numeric",
+  hour:"2-digit",minute:"2-digit",second:"2-digit",
+  timeZone:"Asia/Jakarta"
+ })+" WIB";
 }
-setInterval(updateTime,1000);
-updateTime();
+setInterval(updateTime,1000);updateTime();
 
-/* GOOGLE SHEET */
-const SHEET_URL="PASTE_LINK_CSV_GOOGLE_SHEET_KAMU_DI_SINI";
+const SHEET_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQCLXvz4_F7EfUppPoKWSKQawlesCjiYHhceQCIEDoV8ntbDjFrvKUorP416AGydpWYmxWlOLA3b1JL/pub?gid=0&single=true&output=csv&t="+Date.now();
 let issues=[];
 
 Papa.parse(SHEET_URL,{
  download:true,
  header:true,
  complete:r=>{
-  issues=r.data.filter(x=>x.issue);
+  issues=r.data.map(x=>({
+   issue:(x.issue||"").trim(),
+   solusi:(x.solusi||"").trim(),
+   image_id:(x.image_id||"").trim()
+  })).filter(i=>i.issue);
  }
 });
+
+const nl=t=>t.replace(/\n/g,"<br>");
 
 function render(data){
  const list=document.getElementById("list");
  list.innerHTML="";
- if(!data.length){
-  list.innerHTML="<div class='empty'>Issue tidak ditemukan</div>";
-  return;
- }
+ if(!data.length){list.innerHTML="<div class='empty'>Issue tidak ditemukan</div>";return;}
  data.forEach(item=>{
-  const div=document.createElement("div");
-  div.className="issue-item";
-  div.innerHTML=`
+  const w=document.createElement("div");
+  w.className="issue-item";
+  w.innerHTML=`
    <div class="issue-header">${item.issue}</div>
    <div class="issue-detail">
-    <h4>Solusi</h4>
-    ${(item.solusi||"").replace(/\n/g,"<br>")}
+    <h4>Solusi</h4>${nl(item.solusi)}
+    ${item.image_id&&item.image_id!=="kosong"?`<img src="https://drive.google.com/thumbnail?id=${item.image_id}&sz=w1200">`:""}
    </div>`;
-  div.querySelector(".issue-header").onclick=()=>{
-   const d=div.querySelector(".issue-detail");
-   d.style.display=d.style.display==="block"?"none":"block";
+  w.querySelector(".issue-header").onclick=()=>{
+   document.querySelectorAll(".issue-detail").forEach(d=>d!==w.lastElementChild&&(d.style.display="none"));
+   w.lastElementChild.style.display=w.lastElementChild.style.display==="block"?"none":"block";
   };
-  list.appendChild(div);
+  list.appendChild(w);
  });
 }
 
 document.getElementById("search").addEventListener("input",e=>{
- const k=e.target.value.toLowerCase();
- if(!k){
-  document.getElementById("list").innerHTML="<div class='empty'>Ketik kata kunci untuk mencari issue</div>";
-  return;
- }
+ const k=e.target.value.toLowerCase().trim();
+ if(!k){list.innerHTML="<div class='empty'>Ketik kata kunci untuk mencari issue</div>";return;}
  render(issues.filter(i=>i.issue.toLowerCase().includes(k)));
 });
 </script>
