@@ -250,7 +250,7 @@
         .issue-image { width: 100%; display: block; transition: transform 0.5s ease; }
         .issue-image:hover { transform: scale(1.03); }
 
-        /* --- UPDATED FOOTER LAYOUT (SIDE BY SIDE) --- */
+        /* --- FOOTER STYLING --- */
         .footer {
             margin-top: 80px;
             padding-top: 40px;
@@ -265,47 +265,40 @@
             margin-bottom: 40px;
         }
 
-        .footer-left {
-            text-align: left;
-            flex: 1;
-        }
+        .footer-left { text-align: left; flex: 1.2; }
+        .footer-right { text-align: right; flex: 1; display: flex; flex-direction: column; align-items: flex-end; }
 
-        .footer-right {
-            text-align: right;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .shaking-icon { display: inline-block; animation: shake 0.6s infinite; font-size: 20px; margin-bottom: 8px; }
-        .moving-icon { display: inline-block; animation: pulse 1.5s infinite ease-in-out; }
+        /* Icon Animations */
+        .shaking-icon { display: inline-block; animation: shake 1s infinite; font-size: 20px; margin-bottom: 8px; }
+        .moving-icon { display: inline-block; animation: pulse 1.5s infinite ease-in-out; font-size: 16px; }
         
-        .address-text { font-size: 13px; color: #64748b; line-height: 1.6; max-width: 300px; }
+        @keyframes shake { 0%, 100% { transform: rotate(0deg); } 20% { transform: rotate(8deg); } 80% { transform: rotate(-8deg); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+        .address-text { font-size: 13px; color: #64748b; line-height: 1.8; margin-top: 5px; }
         
-        .contact-links { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-        .contact-item { text-decoration: none; color: #475569; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: 0.2s; justify-content: flex-end;}
-        .contact-item:hover { color: var(--primary); }
+        .contact-links { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
+        .contact-item { 
+            text-decoration: none; color: #475569; font-size: 13px; font-weight: 700; 
+            display: flex; align-items: center; gap: 10px; transition: 0.2s; justify-content: flex-end;
+        }
+        .contact-item:hover { color: var(--primary); transform: translateX(-5px); }
 
-        /* Email Security - Obfuscation Technique */
-        .secure-email span { display: none; } /* Bots don't execute CSS well */
+        /* Security - Obfuscation */
+        .contact-item span.antispam { display: none; }
 
-        .meta-partner-section { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; animation: float 3s ease-in-out infinite; }
-        .meta-logo-img { width: 28px; }
-        .meta-text { font-weight: 800; font-size: 16px; color: #1c2b33; display: flex; align-items: center; gap: 6px; }
+        .meta-partner-section { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+        .meta-text { font-weight: 800; font-size: 17px; color: #1c2b33; display: flex; align-items: center; gap: 8px; }
+        .meta-logo-img { width: 26px; }
 
-        .footer-copyright { text-align: center; padding: 30px 0; font-size: 11px; color: #94a3b8; border-top: 1px solid #f1f5f9; }
-
-        @keyframes shake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(5deg); } 75% { transform: rotate(-5deg); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .footer-copyright { text-align: center; padding: 30px 0; font-size: 11px; color: #94a3b8; border-top: 1px solid #f1f5f9; letter-spacing: 0.5px; }
 
         @media (max-width: 900px) {
             .sidebar { display: none; }
             .main { margin-left: 0; width: 100%; padding: 20px; }
             .footer-top-row { flex-direction: column; text-align: center; align-items: center; }
             .footer-right { text-align: center; align-items: center; }
-            .contact-item { justify-content: center; }
+            .contact-item { justify-content: center; transform: none !important; }
             .meta-partner-section { align-items: center; }
         }
     </style>
@@ -364,18 +357,19 @@
                 <div class="footer-top-row">
                     <div class="footer-left">
                         <span class="shaking-icon">📍</span>
-                        <h4 style="font-size: 14px; color: #1e293b; font-weight: 800; margin-bottom: 5px;">Headquarters</h4>
+                        <h4 style="font-size: 15px; color: #1e293b; font-weight: 800; margin-bottom: 8px;">Headquarters</h4>
                         <div class="address-text">
                             <strong>Ivosights Jakarta</strong><br>
-                            Jl. Tebet Raya No.62 Rt.02/04, East Tebet, South Jakarta, 12820
+                            Jl. Tebet Raya No.62 Rt.02/04,<br>
+                            East Tebet, South Jakarta, 12820
                         </div>
                     </div>
 
                     <div class="footer-right">
                         <div class="contact-links">
-                            <a href="mailto:hello&#64;ivosights&#46;com" class="contact-item secure-email">
-                                <span class="moving-icon">📧</span>
-                                hello&#64;ivosights<span>.ignore-this-bot</span>&#46;com
+                            <a href="mailto:hello&#64;ivosights.com" class="contact-item">
+                                <span class="moving-icon">📧</span> 
+                                hello&#64;ivosights<span class="antispam">.remove-this</span>.com
                             </a>
                             <a href="https://www.ivosights.com" target="_blank" class="contact-item">
                                 <span class="moving-icon">🌐</span> www.ivosights.com
@@ -383,10 +377,10 @@
                         </div>
 
                         <div class="meta-partner-section">
-                            <span style="font-size: 9px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Official Partner</span>
+                            <span style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Official Partner</span>
                             <div class="meta-text">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" class="meta-logo-img"> 
-                                Meta <span style="font-weight: 400; color: #64748b; font-size: 14px;">Business Partner</span>
+                                Meta <span style="font-weight: 400; color: #64748b; font-size: 15px;">Business Partner</span>
                             </div>
                         </div>
                     </div>
