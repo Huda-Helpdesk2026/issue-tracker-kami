@@ -150,8 +150,14 @@
             letter-spacing: 0.1px;
             white-space: nowrap;
         }
-        .footer-copyright { margin-top: 30px; text-align: center; font-size: 11px; color: #94a3b8; letter-spacing: 0.5px; }
-
+            .footer-copyright { 
+            margin-top: 30px; 
+            text-align: center; 
+            font-size: 11px; 
+            color: #94a3b8; 
+            letter-spacing: 0.5px;
+            line-height: 1.6; /* Menambahkan ini agar teks tidak terlalu rapat */
+}
         /* Efek Denyut/Pulse */
             @keyframes ani-pulse { 
             0% { transform: scale(1); opacity: 1; } 
@@ -270,8 +276,11 @@
                     </div>
                 </div>
 
-                <div class="footer-copyright">
-                    &copy; <span id="year"></span> <b>HELPDESK ECOSYSTEM</b> • All Rights Reserved.
+               <div class="footer-copyright">
+                    <div>&copy; <span id="year"></span> All Rights Reserved.</div>
+                        <div style="margin-top: 8px; font-weight: 800; color: #64748b; letter-spacing: 1px; text-transform: uppercase;">
+                    HELPDESK ECOSYSTEM
+                </div>
                 </div>
             </footer>
         </div>
