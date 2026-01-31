@@ -90,7 +90,7 @@
             padding: 30px 50px;
         }
 
-        .container { max-width: 900px; margin: auto; }
+        .container { max-width: 1000px; margin: auto; }
 
         /* --- HEADER CARD --- */
         .header-card {
@@ -135,21 +135,6 @@
             letter-spacing: -1.8px;
             line-height: 1.2;
             margin-bottom: 10px;
-            animation: focus-in 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        }
-
-        .header-card p { 
-            color: #64748b; 
-            font-size: 13px; 
-            font-weight: 600; 
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
-
-        @keyframes focus-in {
-            0% { letter-spacing: 2px; filter: blur(12px); opacity: 0; }
-            100% { letter-spacing: -1.8px; filter: blur(0); opacity: 1; }
         }
 
         /* --- SEARCH BOX & TAGS --- */
@@ -171,14 +156,6 @@
         }
         .search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: #cbd5e1; font-size: 20px; }
 
-        .quick-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 35px; padding-left: 5px; }
-        .tag-hint { font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-right: 5px; align-self: center; }
-        .tag { 
-            background: white; border: 1px solid #e2e8f0; padding: 4px 12px; border-radius: 10px; 
-            font-size: 12px; color: #475569; font-weight: 600; cursor: pointer; transition: 0.2s;
-        }
-        .tag:hover { background: var(--primary); color: white; border-color: var(--primary); }
-
         /* --- ISSUE CARDS --- */
         .issue-card {
             background: white;
@@ -187,12 +164,6 @@
             border: 1px solid #edf2f7;
             transition: var(--transition);
             overflow: hidden;
-        }
-
-        .issue-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px -5px rgba(0,0,0,0.05);
-            border-color: #cbd5e1;
         }
 
         .issue-trigger {
@@ -206,14 +177,13 @@
         .issue-trigger span:first-child { font-weight: 700; color: #334155; font-size: 15px; }
         .arrow { font-size: 12px; color: #94a3b8; transition: transform 0.4s ease; }
 
-        .issue-card.open { border-color: var(--primary); }
         .issue-card.open .arrow { transform: rotate(180deg); color: var(--primary); }
 
         .issue-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            background: linear-gradient(to bottom, #ffffff, #fcfdfe);
+            background: #fcfdfe;
         }
 
         .issue-card.open .issue-content { max-height: 3000px; border-top: 1px solid #f1f5f9; }
@@ -224,73 +194,96 @@
             border-left: 5px solid var(--primary);
             padding: 25px;
             border-radius: 0 16px 16px 0;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
             position: relative;
         }
 
-        .solusi-text { line-height: 1.8; font-size: 15px; color: #475569; font-weight: 450; }
+        /* Perbaikan kerapihan teks solusi */
+        .solusi-text { 
+            line-height: 1.8; 
+            font-size: 15px; 
+            color: #475569; 
+            font-weight: 450;
+            white-space: pre-wrap; /* Menjaga baris tetap rapi sesuai input */
+        }
         
         mark { background: #fef08a; color: #854d0e; padding: 0 2px; border-radius: 2px; }
 
         .btn-copy {
-            margin-top: 15px; background: #ffffff; border: 1px solid #e2e8f0; padding: 6px 12px;
-            border-radius: 8px; font-size: 11px; font-weight: 700; color: #64748b;
-            cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
+            margin-top: 15px; background: #ffffff; border: 1px solid #e2e8f0; padding: 8px 16px;
+            border-radius: 8px; font-size: 12px; font-weight: 700; color: #64748b;
+            cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px;
         }
-        .btn-copy:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-copy:hover { border-color: var(--primary); color: var(--primary); background: #f0f9ff; }
 
-        .image-wrapper {
-            margin-top: 25px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 25px 35px -10px rgba(0,0,0,0.12);
-            border: 1px solid #e2e8f0;
-        }
-
-        .issue-image { width: 100%; display: block; transition: transform 0.5s ease; }
-        .issue-image:hover { transform: scale(1.03); }
-
-        /* --- FOOTER STYLING --- */
+        /* --- FOOTER MODERNIZE --- */
         .footer {
-            margin-top: 80px;
-            padding-top: 40px;
-            border-top: 1px dashed #cbd5e1;
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid #e2e8f0;
         }
 
-        .footer-top-row {
+        .footer-layout {
             display: flex;
-            justify-content: space-between;
             align-items: flex-start;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Grup Alamat, Email, Web (Kiri ke Tengah) */
+        .footer-info-group {
+            display: flex;
             gap: 40px;
-            margin-bottom: 40px;
+            flex: 2;
         }
 
-        .footer-left { text-align: left; flex: 1.5; }
-        .footer-right { text-align: right; flex: 1; display: flex; flex-direction: column; align-items: flex-end; }
-
-        .shaking-icon { display: inline-block; animation: shake 1s infinite; font-size: 20px; }
-        .moving-icon { display: inline-block; animation: pulse 1.5s infinite ease-in-out; font-size: 16px; }
+        .footer-item { display: flex; gap: 12px; align-items: flex-start; }
+        .footer-icon { font-size: 18px; margin-top: 2px; }
         
-        @keyframes shake { 0%, 100% { transform: rotate(0deg); } 20% { transform: rotate(8deg); } 80% { transform: rotate(-8deg); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-
-        .address-text { font-size: 13px; color: #64748b; line-height: 1.8; margin-top: 5px; }
-        
-        .contact-links { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
-        .contact-item { 
-            text-decoration: none; color: #475569; font-size: 13px; font-weight: 700; 
-            display: flex; align-items: center; gap: 10px; transition: 0.2s; justify-content: flex-end;
+        .address-text { 
+            font-size: 13px; color: #64748b; line-height: 1.6; 
         }
-        .contact-item:hover { color: var(--primary); transform: translateX(-5px); }
+        .address-text strong { color: #1e293b; display: block; margin-bottom: 4px; }
 
-        .footer-copyright { text-align: center; padding: 30px 0; font-size: 11px; color: #94a3b8; border-top: 1px solid #f1f5f9; letter-spacing: 0.5px; }
+        .contact-text { display: flex; flex-direction: column; gap: 8px; }
+        .contact-link { 
+            text-decoration: none; color: #475569; font-size: 13px; font-weight: 600;
+            transition: 0.2s;
+        }
+        .contact-link:hover { color: var(--primary); }
+
+        /* Grup Partner (Kanan) */
+        .footer-partner-group {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        .meta-box { display: flex; align-items: center; gap: 8px; }
+        .meta-logo { width: 24px; }
+        .meta-label { font-size: 15px; font-weight: 700; color: #1c2b33; }
+        .meta-sub { font-size: 13px; color: #64748b; font-weight: 400; }
+
+        .sama-box { border-left: 1px solid #e2e8f0; padding-left: 20px; }
+        .sama-label { font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
+        .sama-logo { font-size: 18px; font-weight: 800; color: #1e293b; }
+        .sama-dot { color: #f97316; }
+
+        .footer-copyright {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 11px;
+            color: #94a3b8;
+            letter-spacing: 0.5px;
+        }
 
         @media (max-width: 900px) {
             .sidebar { display: none; }
             .main { margin-left: 0; width: 100%; padding: 20px; }
-            .footer-top-row { flex-direction: column; text-align: center; align-items: center; }
-            .footer-right { text-align: center; align-items: center; }
-            .contact-item { justify-content: center; transform: none !important; }
+            .footer-info-group { flex-direction: column; gap: 20px; }
+            .footer-partner-group { justify-content: flex-start; margin-top: 20px; }
         }
     </style>
 </head>
@@ -306,14 +299,8 @@
         <a href="https://developers.facebook.com/docs/marketing-api/" target="_blank">Marketing API</a>
         <a href="https://developers.facebook.com/docs/whatsapp/" target="_blank">WhatsApp Platform</a>
         <a href="https://developers.facebook.com/docs/graph-api/" target="_blank">Graph API</a>
-        <a href="https://developers.facebook.com/docs/messenger-platform/" target="_blank">Messenger API</a>
         <a href="https://developers.facebook.com/documentation/business-messaging/whatsapp/support/error-codes" target="_blank">Cloud API</a>
-        
-        <a href="https://docs.google.com/spreadsheets/d/1Ak1J5gqrLzHaLxxqbrjGTYnj2XgD7onzv07iMrirBAA/edit?usp=sharing" target="_blank">📅 Support Schedule</a>
-        
-        <a href="https://docs.google.com/presentation/d/11juAD4KUHTNJ78kRXdotFl3rBwXIyRRU/edit?usp=sharing" target="_blank" class="ppt-link">
-            📊 Weekly Report
-        </a>
+        <a href="#" class="ppt-link">📊 Weekly Report</a>
     </nav>
 
     <main class="main">
@@ -322,62 +309,53 @@
                 <div class="datetime" id="datetime"></div>
                 <img src="https://drive.google.com/thumbnail?id=1SINqv3envug8sIa6E9wtBMTZSF-NkaxY&sz=w1000" class="main-logo">
                 <h1>Issue Tracker Helpdesk</h1>
-                <p>Troubleshooting & Solution Portal</p>
+                <p style="font-size: 12px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Troubleshooting & Solution Portal</p>
             </header>
 
             <div class="search-wrapper">
                 <span class="search-icon">🔍</span>
-                <input id="search" placeholder="Cari masalah, solusi, atau kode error..." autocomplete="off" autofocus>
-            </div>
-
-            <div class="quick-tags">
-                <span class="tag-hint">Cepat:</span>
-                <div class="tag" onclick="quickSearch('WhatsApp')">WhatsApp</div>
-                <div class="tag" onclick="quickSearch('Token')">Token</div>
-                <div class="tag" onclick="quickSearch('Ticket')">Ticket</div>
-                <div class="tag" onclick="quickSearch('Template')">Template</div>
+                <input id="search" placeholder="Cari masalah, solusi, atau kode error..." autocomplete="off">
             </div>
 
             <div id="list">
                 <div style="text-align: center; padding: 100px 0; color: #cbd5e1;">
-                    <p style="font-size: 15px; font-weight: 500;">Silakan masukkan kata kunci pencarian di atas.</p>
+                    <p>Masukkan kata kunci untuk mencari solusi.</p>
                 </div>
             </div>
 
             <footer class="footer">
-                <div class="footer-top-row">
-                    <div class="footer-left">
-                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
-                            <h2 style="color: #0ea5e9; font-size: 20px; font-weight: 800; white-space: nowrap;">PT. Ivonesia Solusi Data</h2>
-                            <div style="height: 30px; width: 1px; background: #e2e8f0;"></div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta" style="height: 18px;">
-                            <span style="font-size: 11px; font-weight: 700; color: #475569;">KOMDIGI</span>
-                            <span style="font-size: 9px; padding: 2px 6px; border: 1px solid #cbd5e1; border-radius: 4px; color: #94a3b8;">ISO CERTIFIED</span>
+                <div class="footer-layout">
+                    <div class="footer-info-group">
+                        <div class="footer-item">
+                            <span class="footer-icon">📍</span>
+                            <div class="address-text">
+                                <strong>Jakarta (HQ)</strong>
+                                Jl. Tebet Raya No.62 Rt.02/04<br>
+                                East Tebet, South Jakarta<br>
+                                DKI Jakarta 12820
+                            </div>
                         </div>
 
-                        <div style="display: flex; gap: 15px; align-items: flex-start;">
-                            <span class="shaking-icon">📍</span>
-                            <div class="address-text">
-                                <strong style="color: #1e293b; font-size: 14px;">Jakarta (HQ)</strong><br>
-                                Jl. Tebet Raya No.62 Rt.02/04<br>
-                                East Tebet, South Jakarta, DKI Jakarta 12820
+                        <div class="footer-item">
+                            <div class="contact-text">
+                                <a href="mailto:hello@ivosights.com" class="contact-link">📧 hello@ivosights.com</a>
+                                <a href="https://www.ivosights.com" target="_blank" class="contact-link">🌐 www.ivosights.com</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="footer-right">
-                        <div class="contact-links">
-                            <a href="mailto:hello@ivosights.com" class="contact-item">
-                                <span class="moving-icon">📧</span> hello@ivosights.com
-                            </a>
-                            <a href="https://www.ivosights.com" target="_blank" class="contact-item">
-                                <span class="moving-icon">🌐</span> www.ivosights.com
-                            </a>
+                    <div class="footer-partner-group">
+                        <div class="meta-box">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" class="meta-logo">
+                            <div>
+                                <span class="meta-label">Meta</span>
+                                <span class="meta-sub">Business Partner</span>
+                            </div>
                         </div>
-                        
-                        <div style="margin-top: 5px; display: flex; align-items: center; gap: 8px;">
-                            <span style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Part of</span>
-                            <span style="font-weight: 800; color: #1e293b; font-size: 18px;">sama<span style="color: #f97316;">.</span></span>
+
+                        <div class="sama-box">
+                            <span class="sama-label">Part of</span>
+                            <span class="sama-logo">sama<span class="sama-dot">.</span></span>
                         </div>
                     </div>
                 </div>
@@ -396,17 +374,11 @@
             const now = new Date();
             document.getElementById("datetime").textContent = now.toLocaleDateString('id-ID', {
                 weekday: 'short', day: '2-digit', month: 'short'
-            }) + " • " + now.toLocaleTimeString('id-ID', {
-                hour: '2-digit', minute: '2-digit'
-            }) + " WIB";
+            }) + " • " + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + " WIB";
         }
-        setInterval(updateTime, 1000); 
-        updateTime();
+        setInterval(updateTime, 1000); updateTime();
 
-        window.onload = () => {
-            document.getElementById("search").focus();
-        };
-
+        // Ganti URL ini dengan URL CSV Google Sheet Anda
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQCLXvz4_F7EfUppPoKWSKQawlesCjiYHhceQCIEDoV8ntbDjFrvKUorP416AGydpWYmxWlOLA3b1JL/pub?gid=0&single=true&output=csv";
         let issues = [];
 
@@ -421,66 +393,81 @@
             }
         });
 
-        function quickSearch(val) {
-            const input = document.getElementById("search");
-            input.value = val;
-            input.dispatchEvent(new Event('input'));
-        }
-
-        function highlight(text, query) {
-            if (!query) return text;
-            const re = new RegExp(`(${query})`, "gi");
-            return text.replace(re, "<mark>$1</mark>");
-        }
-
+        // FUNGSI COPY TO CLIPBOARD YANG BERFUNGSI
         function copyToClipboard(btn, text) {
-            const el = document.createElement('textarea');
-            el.value = text.replace(/<br>/g, '\n');
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
             
-            const originalText = btn.innerHTML;
-            btn.innerHTML = "✅ Berhasil Disalin";
-            setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+            try {
+                document.execCommand('copy');
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = "✅ Berhasil Disalin";
+                btn.style.borderColor = "#10b981";
+                btn.style.color = "#10b981";
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.style.borderColor = "#e2e8f0";
+                    btn.style.color = "#64748b";
+                }, 2000);
+            } catch (err) {
+                console.error('Gagal menyalin: ', err);
+            }
+            document.body.removeChild(tempInput);
         }
 
         function render(data, query = "") {
             const list = document.getElementById("list");
             list.innerHTML = "";
             if (!data.length) {
-                list.innerHTML = `<div style="text-align: center; padding: 80px 0; color: #94a3b8;"><p>Data tidak ditemukan. Coba kata kunci lain.</p></div>`;
+                list.innerHTML = `<div style="text-align: center; padding: 80px 0; color: #94a3b8;"><p>Data tidak ditemukan.</p></div>`;
                 return;
             }
 
             data.forEach((item) => {
                 const wrap = document.createElement("div");
                 wrap.className = "issue-card";
-                const cleanSolusi = item.solusi.replace(/\n/g, "<br>");
                 
+                // Gunakan .replace() untuk highlight tapi simpan text asli untuk tombol salin
+                const highlightText = (text) => {
+                    if (!query) return text;
+                    const re = new RegExp(`(${query})`, "gi");
+                    return text.replace(re, "<mark>$1</mark>");
+                };
+
                 wrap.innerHTML = `
                     <div class="issue-trigger">
-                        <span>${highlight(item.issue.toUpperCase(), query)}</span>
+                        <span>${highlightText(item.issue.toUpperCase())}</span>
                         <span class="arrow">▼</span>
                     </div>
                     <div class="issue-content">
                         <div class="content-inner">
                             <div class="solusi-container">
-                                <div class="solusi-text">${highlight(cleanSolusi, query)}</div>
-                                <button class="btn-copy" onclick="copyToClipboard(this, '${item.solusi.replace(/'/g, "\\'")}')">📋 Salin Solusi</button>
+                                <div class="solusi-text">${highlightText(item.solusi)}</div>
+                                <button class="btn-copy">📋 Salin Solusi</button>
                             </div>
                             ${item.image_id ? `
                                 <div class="image-wrapper">
-                                    <img src="https://drive.google.com/thumbnail?id=${item.image_id}&sz=w1200" class="issue-image">
+                                    <img src="https://drive.google.com/thumbnail?id=${item.image_id}&sz=w1200" class="issue-image" style="width:100%; margin-top:20px; border-radius:12px;">
                                 </div>` : ""}
                         </div>
                     </div>`;
+
+                // Event listener untuk buka/tutup
                 wrap.querySelector(".issue-trigger").onclick = () => {
                     const isOpen = wrap.classList.contains("open");
                     document.querySelectorAll(".issue-card").forEach(c => c.classList.remove("open"));
                     if (!isOpen) wrap.classList.add("open");
                 };
+
+                // Event listener untuk tombol salin
+                wrap.querySelector(".btn-copy").onclick = (e) => {
+                    e.stopPropagation();
+                    copyToClipboard(e.target, item.solusi);
+                };
+
                 list.appendChild(wrap);
             });
         }
@@ -488,7 +475,7 @@
         document.getElementById("search").addEventListener("input", e => {
             const k = e.target.value.toLowerCase();
             if (!k) {
-                document.getElementById("list").innerHTML = `<div style="text-align: center; padding: 100px 0; color: #cbd5e1;"><p style="font-size: 15px; font-weight: 500;">Silakan masukkan kata kunci pencarian di atas.</p></div>`;
+                document.getElementById("list").innerHTML = `<div style="text-align: center; padding: 100px 0; color: #cbd5e1;"><p>Masukkan kata kunci untuk mencari solusi.</p></div>`;
                 return;
             }
             const filtered = issues.filter(i => i.issue.toLowerCase().includes(k) || i.solusi.toLowerCase().includes(k));
