@@ -58,7 +58,7 @@
             color: white; 
             z-index: 1001; 
             transition: var(--transition);
-            overflow-y: auto; /* Memastikan jika link banyak bisa di-scroll */
+            overflow-y: auto;
         }
 
         .brand { margin-bottom: 30px; padding-left: 15px; }
@@ -122,7 +122,21 @@
         }
 
         .main-logo { width: 160px; height: auto; margin: 0 auto 20px; display: block; }
-        .header-card h1 { font-size: 32px; font-weight: 800; color: #0f172a; letter-spacing: -1px; margin-bottom: 8px; }
+        
+        /* PERBAIKAN JUDUL TENGAH */
+        .header-card h1 { 
+            font-size: 36px; 
+            font-weight: 800; 
+            color: #0f172a; 
+            letter-spacing: -1px; 
+            margin-bottom: 10px;
+            display: block;
+        }
+        .header-card p {
+            color: #64748b; 
+            font-weight: 500;
+            font-size: 15px;
+        }
 
         /* --- SEARCH & LIST --- */
         .search-wrapper { position: relative; margin-bottom: 30px; }
@@ -276,8 +290,9 @@
             <header class="header-card">
                 <div class="datetime" id="datetime">Memuat waktu...</div>
                 <img src="https://drive.google.com/thumbnail?id=1SINqv3envug8sIa6E9wtBMTZSF-NkaxY&sz=w1000" class="main-logo" alt="Logo">
-                <h1>Issue Tracker</h1>
-                <p style="color: #64748b; font-weight: 500;">Pusat Pencarian Solusi & Troubleshooting Helpdesk</p>
+                
+                <h1>Helpdesk Issue Tracker</h1>
+                <p>Pusat Pencarian Solusi & Troubleshooting Helpdesk</p>
             </header>
 
             <div class="search-wrapper">
@@ -312,7 +327,7 @@
                         </div>
                         <div style="height:30px; width:1px; background:#e2e8f0;"></div>
                         <div style="line-height:1">
-                            <span style="font-size:20px; font-weight:900; color:#1e293b; font-style:italic;">sama<span style="color:#f97316">.</span></span>
+                            <span style="font-size:20px; font-weight:900; color:#1e293b; font-style:italic;">sama<span style="color:#f97316;">.</span></span>
                             <p style="font-size:6px; font-weight:800; color:#64748b; margin-top:2px;">STRATEGIC ASIA MARKETING ALLIANCE</p>
                         </div>
                     </div>
