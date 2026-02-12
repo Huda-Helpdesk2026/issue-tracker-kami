@@ -90,11 +90,20 @@
         .brand .logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; }
         .brand .logo-dot { color: var(--primary); }
         .brand .sub-text { font-size: 10px; color: #64748b; font-weight: 700; letter-spacing: 1.5px; margin-top: 4px; }
-
+        
         .sidebar h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #475569; margin-bottom: 20px; padding-left: 12px; }
         .sidebar a { display: flex; align-items: center; padding: 14px 16px; margin-bottom: 8px; border-radius: 12px; text-decoration: none; color: #94a3b8; font-size: 14px; font-weight: 500; transition: var(--transition); }
         .sidebar a:hover { background: rgba(255, 255, 255, 0.05); color: white; transform: translateX(4px); }
-        .ppt-link { margin-top: auto !important; background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important; color: white !important; justify-content: center; font-weight: 700 !important; box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4); margin-bottom: 10px; }
+        
+        .ppt-link { 
+            margin-top: auto !important; 
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important; 
+            color: white !important; 
+            justify-content: center; 
+            font-weight: 700 !important; 
+            box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4); 
+            margin-bottom: 10px; 
+        }
 
         /* --- MAIN CONTENT --- */
         .main { margin-left: 280px; width: calc(100% - 280px); padding: 30px 50px; transition: var(--transition); }
@@ -109,7 +118,7 @@
         .search-wrapper input { width: 100%; padding: 18px 25px 18px 60px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; font-size: 16px; outline: none; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.02); transition: var(--transition); }
         .search-wrapper input:focus { border-color: var(--primary); box-shadow: 0 0 0 5px var(--primary-glow); }
         .search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: #cbd5e1; font-size: 20px; }
-
+        
         .issue-card { background: white; border-radius: 20px; margin-bottom: 16px; border: 1px solid #edf2f7; transition: var(--transition); overflow: hidden; }
         .issue-trigger { padding: 24px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .issue-trigger span:first-child { font-weight: 700; color: #334155; font-size: 15px; }
@@ -118,6 +127,7 @@
         .issue-content { max-height: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1); background: #fcfdfe; }
         .issue-card.open .issue-content { max-height: 3000px; border-top: 1px solid #f1f5f9; }
         .content-inner { padding: 30px; }
+        
         .solusi-container { background: #f8fafc; border-left: 5px solid var(--primary); padding: 25px; border-radius: 0 16px 16px 0; }
         .solusi-text { line-height: 1.8; font-size: 15px; color: #475569; white-space: pre-wrap; }
         .btn-copy { margin-top: 15px; background: #ffffff; border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 700; color: #64748b; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
@@ -133,12 +143,13 @@
         .meta-box { display: flex; align-items: center; gap: 10px; }
         .meta-logo { width: 22px; }
         .meta-label { font-size: 14px; font-weight: 700; color: #1c2b33; }
-
+        
         .sama-box { border-left: 1px solid #e2e8f0; padding-left: 20px; display: flex; flex-direction: column; }
         .sama-label { font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; }
         .sama-logo-wrapper { display: flex; flex-direction: column; line-height: 1.1; }
         .sama-logo-new { font-size: 22px; font-weight: 900; color: #1e293b; font-style: italic; letter-spacing: -1px; }
         .sama-subtext { font-size: 5.5px; font-weight: 800; color: #475569; letter-spacing: 0.1px; white-space: nowrap; }
+        
         .footer-copyright { margin-top: 30px; text-align: center; font-size: 11px; color: #94a3b8; letter-spacing: 0.5px; line-height: 1.6; }
 
         @media (max-width: 1024px) {
@@ -176,7 +187,13 @@
         <a href="https://developers.facebook.com/docs/whatsapp/" target="_blank">WhatsApp Platform</a>
         <a href="https://developers.facebook.com/docs/graph-api/" target="_blank">Graph API</a>
         <a href="https://developers.facebook.com/docs/messenger-platform/" target="_blank">Messenger API</a>
-        <a href="https://kb.sociomile.com/category/technical-troubleshooting/" target="_blank">Technical Issue</a>
+        <a href="https://developers.facebook.com/documentation/business-messaging/whatsapp/support/error-codes" target="_blank">Cloud API</a>
+        <a href="https://kb.sociomile.com/how-to-add-a-whatsapp-channel/" target="_blank"> Add Channel Whatsapp</a>
+        <a href="https://kb.sociomile.com/how-to-add-an-email-channel/" target="_blank"> Add Channel Email</a>
+        <a href="https://kb.sociomile.com/how-to-add-a-facebook-channel/" target="_blank"> Add Channel Facebook</a>
+        <a href="https://kb.sociomile.com/how-to-add-an-instagram-channel/" target="_blank"> Add Channel Instagram</a>
+        <a href="https://kb.sociomile.com/category/technical-troubleshooting/" target="_blank"> Technical Issue & Troubleshooting</a>
+        <a href="https://kb.sociomile.com/category/account-settings/" target="_blank"> Account Setting</a>
         <a href="https://docs.google.com/spreadsheets/d/1Ak1J5gqrLzHaLxxqbrjGTYnj2XgD7onzv07iMrirBAA/edit?usp=sharing" target="_blank">📅 Support Schedule</a>
 
         <a href="https://docs.google.com/presentation/d/11juAD4KUHTNJ78kRXdotFl3rBwXIyRRU/edit?usp=sharing" target="_blank" class="ppt-link">
@@ -232,6 +249,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="footer-copyright">
                     <div>&copy; <span id="year"></span> All Team Helpdesk.</div>
                 </div>
@@ -240,6 +258,7 @@
     </main>
 
     <script>
+        // Logika Sidebar Mobile
         const menuToggle = document.getElementById('menuToggle');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
@@ -251,6 +270,12 @@
 
         menuToggle.onclick = toggleMenu;
         overlay.onclick = toggleMenu;
+
+        sidebar.querySelectorAll('a').forEach(link => {
+            link.onclick = () => {
+                if (window.innerWidth <= 1024) toggleMenu();
+            };
+        });
 
         document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -276,17 +301,25 @@
                     solusi: (x.solusi || "").trim(),
                     image_id: (x.image_id || "").trim()
                 })).filter(i => i.issue);
+
                 dataReady = true;
-                document.getElementById("list").innerHTML = `<div style="text-align: center; padding: 100px 0; color: #cbd5e1;"><p>Masukkan kata kunci untuk mencari solusi.</p></div>`;
+                document.getElementById("list").innerHTML =
+                    `<div style="text-align: center; padding: 100px 0; color: #cbd5e1;">
+                        <p>Masukkan kata kunci untuk mencari solusi.</p>
+                    </div>`;
             }
         });
 
         function copyToClipboard(btn, text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const originalContent = btn.innerHTML;
-                btn.innerHTML = "✅ Berhasil Disalin";
-                setTimeout(() => { btn.innerHTML = originalContent; }, 2000);
-            });
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = "✅ Berhasil Disalin";
+            setTimeout(() => { btn.innerHTML = originalContent; }, 2000);
+            document.body.removeChild(tempInput);
         }
 
         function render(data, query = "") {
@@ -336,37 +369,76 @@
         }
 
         document.getElementById("search").addEventListener("input", e => {
-            if (!dataReady) return;
-            const k = e.target.value.toLowerCase();
-            if (!k) {
-                document.getElementById("list").innerHTML = `<div style="text-align: center; padding: 100px 0; color: #cbd5e1;"><p>Masukkan kata kunci untuk mencari solusi.</p></div>`;
+            if (!dataReady) {
+                document.getElementById("list").innerHTML =
+                    `<div style="text-align: center; padding: 100px 0; color: #94a3b8;">
+                        <p>⏳ Data masih dimuat, tunggu sebentar...</p>
+                    </div>`;
                 return;
             }
-            const filtered = issues.filter(i => i.issue.toLowerCase().includes(k) || i.solusi.toLowerCase().includes(k));
+
+            const k = e.target.value.toLowerCase();
+            if (!k) {
+                document.getElementById("list").innerHTML =
+                    `<div style="text-align: center; padding: 100px 0; color: #cbd5e1;">
+                        <p>Masukkan kata kunci untuk mencari solusi.</p>
+                    </div>`;
+                return;
+            }
+
+            const filtered = issues.filter(i =>
+                i.issue.toLowerCase().includes(k) ||
+                i.solusi.toLowerCase().includes(k)
+            );
             render(filtered, k);
         });
 
-        // Popular Search Logic
+        /* =========================
+            SMART FREQUENT SEARCH V2
+        ========================= */
         const FREQ_STORAGE_KEY = "helpdesk_freq_search_v2";
+        const MAX_SAVE = 25;
+        const EXPIRE_DAYS = 7;
+
+        function normalize(t) { return t.toLowerCase().trim().replace(/\s+/g, ' ') }
+
         function loadFreq() {
-            return JSON.parse(localStorage.getItem(FREQ_STORAGE_KEY) || "[]");
+            try {
+                const raw = JSON.parse(localStorage.getItem(FREQ_STORAGE_KEY) || "[]");
+                const now = Date.now();
+                const valid = raw.filter(i => now - i.time < EXPIRE_DAYS * 86400000);
+                localStorage.setItem(FREQ_STORAGE_KEY, JSON.stringify(valid));
+                return valid;
+            } catch (e) { return [] }
+        }
+
+        function saveFreq(d) {
+            localStorage.setItem(FREQ_STORAGE_KEY, JSON.stringify(d.slice(0, MAX_SAVE)))
         }
 
         function recordSearch(keyword) {
-            keyword = keyword.toLowerCase().trim();
-            if (keyword.length < 3) return;
+            keyword = normalize(keyword);
+            if (keyword.length < 3 || keyword.length > 60) return;
+
             let data = loadFreq();
+            const now = Date.now();
+
             let found = data.find(i => i.key === keyword);
-            if (found) { found.count++; } else { data.push({ key: keyword, count: 1 }); }
+            if (found) { found.count++; found.time = now }
+            else data.push({ key: keyword, count: 1, time: now });
+
             data.sort((a, b) => b.count - a.count);
-            localStorage.setItem(FREQ_STORAGE_KEY, JSON.stringify(data.slice(0, 10)));
+            saveFreq(data);
             renderFreq();
         }
 
         function renderFreq() {
             const box = document.getElementById("popular-list");
+            if (!box) return;
+
             const data = loadFreq().slice(0, 8);
             box.innerHTML = "";
+
             data.forEach(d => {
                 const btn = document.createElement("div");
                 btn.className = "popular-item";
@@ -380,13 +452,15 @@
             });
         }
 
-        let debounceTimer;
-        document.getElementById("search").addEventListener("input", e => {
+        let debounceTimer = null;
+        document.addEventListener("input", e => {
+            if (e.target.id != "search") return;
             clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => recordSearch(e.target.value), 1000);
+            debounceTimer = setTimeout(() => recordSearch(e.target.value), 600);
         });
 
         document.addEventListener("DOMContentLoaded", renderFreq);
     </script>
 </body>
+
 </html>
