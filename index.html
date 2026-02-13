@@ -343,6 +343,9 @@
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQCLXvz4_F7EfUppPoKWSKQawlesCjiYHhceQCIEDoV8ntbDjFrvKUorP416AGydpWYmxWlOLA3b1JL/pub?gid=0&single=true&output=csv";
         
         let issues = [];
+
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby2WBn2g148Yr57lzKsfLu0muSXJ6b5sr_88jZf0M3BY2oJbYzEqGCjQLYR5IaLnU_z/exec";
+        
         let dataReady = false;
 
         // DateTime
@@ -461,42 +464,74 @@
             render(filtered, query);
         };
 
-        // Popular Search
-        const STORAGE_KEY = "helpdesk_popular_v2";
-        function recordSearch(k) {
-            k = k.toLowerCase().trim();
-            if(k.length < 3) return;
-            let data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-            let existing = data.find(i => i.key === k);
-            if(existing) existing.count++; else data.push({key: k, count: 1});
-            data.sort((a,b) => b.count - a.count);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data.slice(0, 10)));
-            renderPopular();
-        }
-
-        function renderPopular() {
-            const list = $('popular-list');
-            const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]").slice(0, 6);
-            list.innerHTML = "";
-            data.forEach(d => {
-                const item = document.createElement('div');
-                item.className = "popular-item";
-                item.textContent = d.key;
-                item.onclick = () => {
-                    $('search').value = d.key;
-                    $('search').dispatchEvent(new Event('input'));
-                };
-                list.appendChild(item);
-            });
-        }
-
-        let searchDebounce;
-        $('search').addEventListener('input', e => {
-            clearTimeout(searchDebounce);
-            searchDebounce = setTimeout(() => recordSearch(e.target.value), 1500);
+        async function recordSearch(k) {
+    k = k.toLowerCase().trim();
+    if(k.length < 3) return; 
+    
+    try {
+        // Mengirim data ke Google Sheets (Global)
+        await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ keyword: k })
         });
+        // Opsional: render ulang setelah jeda singkat untuk sinkronisasi
+        setTimeout(renderPopular, 2000); 
+    } catch (err) {
+        console.error("Gagal sinkronisasi pencarian global");
+    }
+}
+        }
 
-        window.onload = renderPopular;
+        async function renderPopular() {
+    const list = $('popular-list');
+    try {
+        // Mengambil data Top 6 dari Google Sheets
+        const response = await fetch(APPS_SCRIPT_URL);
+        const data = await response.json();
+        
+        list.innerHTML = "";
+        if(!data || data.length === 0) {
+            list.innerHTML = "<span style='font-size:11px; color:#94a3b8;'>Belum ada tren</span>";
+            return;
+        }
+
+        data.forEach(d => {
+            const item = document.createElement('div');
+            item.className = "popular-item";
+            item.textContent = d.key;
+            item.onclick = () => {
+                $('search').value = d.key;
+                $('search').dispatchEvent(new Event('input'));
+            };
+            list.appendChild(item);
+        });
+    } catch (err) {
+        console.error("Gagal memuat Top Pencarian");
+    }
+}
+        }
+
+       let searchDebounce;
+$('search').addEventListener('input', e => {
+    // Logika filter list tetap berjalan instan
+    if(!dataReady) return;
+    const query = e.target.value.toLowerCase().trim();
+    if(!query) {
+        $('list').innerHTML = `<div style="text-align:center; padding:60px; color:#94a3b8;"><p>Masukkan kata kunci untuk mencari.</p></div>`;
+    } else {
+        const filtered = issues.filter(i => i.issue.toLowerCase().includes(query) || i.solusi.toLowerCase().includes(query));
+        render(filtered, query);
+    }
+
+    // Logika pencatatan Global didebounce (tunggu 1.5 detik diam baru kirim)
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(() => recordSearch(e.target.value), 1500);
+});
+
+// Jalankan saat load pertama kali
+window.onload = renderPopular;
     </script>
 </body>
 </html>
