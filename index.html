@@ -427,8 +427,7 @@
                             </div>
                             <div class="img-placeholder" data-id="${item.image_id}"></div>
                         </div>
-                    </div>
-                `;
+                    </div> `;
 
                 card.querySelector('.issue-trigger').onclick = () => {
                     const isOpen = card.classList.contains('open');
@@ -481,9 +480,7 @@
     } catch (err) {
         console.error("Gagal sinkronisasi pencarian global");
     }
-}
-        }
-
+        
         async function renderPopular() {
     const list = $('popular-list');
     try {
@@ -510,8 +507,6 @@
     } catch (err) {
         console.error("Gagal memuat Top Pencarian");
     }
-}
-        }
 
        let searchDebounce;
 $('search').addEventListener('input', e => {
