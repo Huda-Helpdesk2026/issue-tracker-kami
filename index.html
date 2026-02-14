@@ -140,6 +140,12 @@
 
         /* --- SEARCH & LIST --- */
         .search-wrapper { position: relative; margin-bottom: 30px; }
+        <div style="text-align:right; margin-bottom:20px;">
+    <button onclick="generateSummary()" 
+        style="padding:10px 18px; background:#10b981; border:none; color:white; border-radius:10px; cursor:pointer;">
+        ✨ Generate Weekly AI Summary
+    </button>
+</div>
         .search-wrapper input { 
             width: 100%; 
             padding: 20px 25px 20px 65px; 
@@ -345,6 +351,9 @@
         let issues = [];
 
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby2WBn2g148Yr57lzKsfLu0muSXJ6b5sr_88jZf0M3BY2oJbYzEqGCjQLYR5IaLnU_z/exec";
+
+        const AI_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3mQpBDOq0CKmyo6wEzla7FVMiP27QBP-9hsD1a-UvVg1hUAc6YS6LuIZLefTBWDJN/exec";
+
         
         let dataReady = false;
 
@@ -404,10 +413,22 @@
             const container = $('list');
             container.innerHTML = "";
             
-            if (data.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:60px; color:#94a3b8;"><p>Maaf, solusi tidak ditemukan.</p></div>`;
-                return;
-            }
+           if (data.length === 0) {
+    container.innerHTML = `
+    <div style="text-align:center; padding:60px;">
+        <p style="color:#94a3b8;">Solusi tidak ditemukan.</p>
+        <button id="aiFallbackBtn" 
+            style="margin-top:20px; padding:12px 20px; background:#0ea5e9; border:none; color:white; border-radius:10px; cursor:pointer;">
+            🤖 Tanya AI
+        </button>
+    </div>`;
+
+    document.getElementById("aiFallbackBtn").onclick = () => {
+        askAIFallback(q);
+    };
+
+    return;
+}
 
             data.forEach(item => {
                 const card = document.createElement('div');
@@ -524,8 +545,87 @@
         });
 
         // Jalankan saat load pertama kali
-        window.onload = renderPopular;
+window.onload = renderPopular;
+
+
+// ================================
+// AI FALLBACK FUNCTION
+// ================================
+async function askAIFallback(question) {
+    const container = document.getElementById("list");
+    container.innerHTML = "<p style='text-align:center; padding:60px;'>AI sedang berpikir...</p>";
+
+    try {
+        const response = await fetch(AI_SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                type: "fallback",
+                question: question
+            })
+        });
+
+        const data = await response.json();
+
+        container.innerHTML = `
+        <div class="issue-card open">
+            <div class="issue-trigger">
+                <span>🤖 AI Assistant</span>
+            </div>
+            <div class="issue-content" style="max-height:2000px;">
+                <div class="content-inner">
+                    <div class="solusi-container">
+                        <div class="solusi-text">${data.answer}</div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    } catch (err) {
+        container.innerHTML = "<p style='text-align:center; padding:60px;'>Gagal menghubungi AI.</p>";
+    }
+}
+
+        // ================================
+// WEEKLY AI SUMMARY FUNCTION
+// ================================
+async function generateSummary() {
+    const container = document.getElementById("list");
+    container.innerHTML = "<p style='text-align:center; padding:60px;'>AI sedang membuat summary...</p>";
+
+    const allIssues = issues.map(i => i.issue + " - " + i.solusi).join("\n");
+
+    try {
+        const response = await fetch(AI_SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                type: "summary",
+                data: allIssues
+            })
+        });
+
+        const data = await response.json();
+
+        container.innerHTML = `
+        <div class="issue-card open">
+            <div class="issue-trigger">
+                <span>📊 Weekly AI Summary</span>
+            </div>
+            <div class="issue-content" style="max-height:2000px;">
+                <div class="content-inner">
+                    <div class="solusi-container">
+                        <div class="solusi-text">${data.summary}</div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    } catch (err) {
+        container.innerHTML = "<p style='text-align:center; padding:60px;'>Gagal generate summary.</p>";
+    }
+}
         
     </script>
+
+    
 </body>
 </html>
