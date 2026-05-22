@@ -456,11 +456,7 @@
                     showLoginError();
                 }
             } catch (err) {
-                // Fallback Local Login
-                if(idValue === "admin123" && pwValue === "pass123") {
-                     sessionStorage.setItem("helpdesk_auth", "local_active");
-                     loginSuccess();
-                } else {
+            
                     showLoginError();
                 }
             }
