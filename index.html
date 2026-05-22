@@ -434,32 +434,37 @@
         let dataReady = false;
 
         // --- SISTEM LOGIN ---
-        $('btnLogin').onclick = async () => {
-            const idValue = $('login-id').value;
-            const pwValue = $('login-pw').value;
-            const btn = $('btnLogin');
-            
-            btn.textContent = "MEMVERIFIKASI...";
-            btn.disabled = true;
+$('btnLogin').onclick = async () => {
+    const idValue = $('login-id').value;
+    const pwValue = $('login-pw').value;
+    const btn = $('btnLogin');
 
-            try {
-                const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({ action: "login", id: idValue, pw: pwValue })
-                });
-                const result = await response.json();
+    btn.textContent = "MEMVERIFIKASI...";
+    btn.disabled = true;
 
-                if (result.success) {
-                    sessionStorage.setItem("helpdesk_auth", result.token);
-                    loginSuccess();
-                } else {
-                    showLoginError();
-                }
-            } catch (err) {
-            
-                    showLoginError();
-                }
-        };
+    try {
+        const response = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                action: "login",
+                id: idValue,
+                pw: pwValue
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            sessionStorage.setItem("helpdesk_auth", result.token);
+            loginSuccess();
+        } else {
+            showLoginError();
+        }
+
+    } catch (err) {
+        showLoginError();
+    }
+};
 
         function loginSuccess() {
             $('login-overlay').style.display = 'none';
